@@ -111,4 +111,17 @@ public class Room {
     public void setStatus(boolean status) {
         this.status = status;
     }
+
+    public Room(int ID, String name, String loc, RoomType type, int width, int length, int height, Equipment eq, boolean status) {
+        this.ID = ID;
+        this.name = name;
+        this.loc = loc;
+        this.type = type;
+        this.dimension = new Dimension();
+        this.dimension.setWidth(width);
+        this.dimension.setLength(length);
+        this.dimension.setHeight(height);
+        this.eq = eq;
+        this.status = status;
+    }
 }
