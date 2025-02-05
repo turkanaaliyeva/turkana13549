@@ -16,26 +16,17 @@ public class Staff {
         this.name = name;
         this.department = department;
         this.salary = 0.0;            // Default salary
-        this.phoneNumber = "";       // Default empty phone number
-        this.status = "";            // Default empty status
-        this.role = "";              // Default empty role
-        this.email = "";             // Default empty email
-        this.officeNumber = "";      // Default empty office number
     }
 
-    // 2. Detailed Constructor (Name, Department, Salary, Role, and Status)
     public Staff(String name, String department, double salary, String role, String status) {
         this.name = name;
         this.department = department;
         this.salary = salary;
         this.role = role;
         this.status = status;
-        this.phoneNumber = "";       // Default empty phone number
-        this.email = "";             // Default empty email
-        this.officeNumber = "";      // Default empty office number
+
     }
 
-    // 3. Full Constructor (All fields)
     public Staff(String name, String department, double salary, String status, String role, 
                  String email, String phoneNumber, String officeNumber) {
         this.name = name;
@@ -48,7 +39,6 @@ public class Staff {
         this.officeNumber = officeNumber;
     }
 
-    // Salary
     public double getSalary() {
         if (salary <= 0) {
             System.out.println("Error: Salary must be set to a positive value.");
