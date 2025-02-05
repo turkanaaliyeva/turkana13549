@@ -1,3 +1,4 @@
+
 public class Room {
 
     public class Dimension {
@@ -48,13 +49,26 @@ public class Room {
         PROJECTOR
     }
 
-    private int ID = 0;
-    private String name = "";
-    private String loc = "UNKNOWN!";
-    private RoomType type = RoomType.NONE;
-    private Dimension dimension = new Dimension();
-    private Equipment eq = Equipment.NONE;
-    private boolean status = false;
+    private int ID;
+    private String name;
+    private String loc;
+    private RoomType type;
+    private Dimension dimension;
+    private Equipment[] eq;
+    private boolean status;
+
+    public Room(int ID, String name, String loc, RoomType type, int width, int length, int height, Equipment[] eq, boolean status) {
+        this.ID = ID;
+        this.name = name;
+        this.loc = loc;
+        this.type = type;
+        this.dimension = new Dimension();
+        this.dimension.setWidth(width);
+        this.dimension.setLength(length);
+        this.dimension.setHeight(height);
+        this.eq = eq;
+        this.status = status;
+    }
 
     public int getID() {
         return ID;
@@ -96,11 +110,11 @@ public class Room {
         this.dimension = dimension;
     }
 
-    public Equipment getEq() {
+    public Equipment[] getEq() {
         return eq;
     }
 
-    public void setEq(Equipment eq) {
+    public void setEq(Equipment[] eq) {
         this.eq = eq;
     }
 
@@ -109,19 +123,6 @@ public class Room {
     }
 
     public void setStatus(boolean status) {
-        this.status = status;
-    }
-
-    public Room(int ID, String name, String loc, RoomType type, int width, int length, int height, Equipment eq, boolean status) {
-        this.ID = ID;
-        this.name = name;
-        this.loc = loc;
-        this.type = type;
-        this.dimension = new Dimension();
-        this.dimension.setWidth(width);
-        this.dimension.setLength(length);
-        this.dimension.setHeight(height);
-        this.eq = eq;
         this.status = status;
     }
 }
