@@ -143,6 +143,4 @@ public class Staff {
         }
         this.officeNumber = officeNumber;
     }
-
-
 }
