@@ -42,4 +42,3 @@ public class Student {
         this.onProbation = this.cgpa < 2.5 && this.gpa < 2.5;
     }
 }
-
