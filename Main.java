@@ -1,8 +1,15 @@
-public class Main {
+import java.util.Arrays;
+
+public class Main{
     public static void main(String[] args) {
-        Faculty f1 = new Faculty("30021", "Mete", "Keskin", "mkeskin@ait.edu", "421", "Information", "Assistant Professor", "I201", "03-01-2023", false);
-        f1.changeAvailabilityStatus(true);
-        f1.displayFacultyInfo();
-        f1.assignCourse("Introduction to Computer Science");
+        Student[] students = new Student[]{
+            new Student("Ismayil", 123),
+            new Student("John", 1234),
+            new Student("Jack", 1236)
+        };
+        String name = students[0].getName();
+        StringBuilder sb = new StringBuilder(name);
+        students[0].setName(sb.reverse().toString());
+        System.out.println(students[0].getName());
     }
 }
