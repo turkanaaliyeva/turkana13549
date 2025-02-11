@@ -5,7 +5,7 @@ class School {
     String headOfDepartment;
     String campus; 
 
-    School(String name, String program, int totalStudents, String headOfDepartment, String campus) {
+    School(String name, String[] programs, int totalStudents, String headOfDepartment, String campus) {
         this.name = name;
         this.program = program;
         this.totalStudents = totalStudents;
