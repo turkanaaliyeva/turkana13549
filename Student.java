@@ -27,7 +27,7 @@ public class Student{
         "\nEmail: " + this.email);
         System.out.println("Courses: ");
         
-        or (var course : this.courses) {
+        for (Course course : this.courses) {
             System.out.println("\n_________________\n");
             course.GetCourse();
             
