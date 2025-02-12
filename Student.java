@@ -1,6 +1,3 @@
-
-import java.util.List;
-
 public class Student extends Object {
     private String name;
     private int id; 
@@ -33,6 +30,48 @@ public class Student extends Object {
         this.id = id;
     }
 
+    public void GetStudentInfo(){
+        System.out.println("Name: " + this.name +
+        "\nId: " + this.id +
+        "\nGPA: " + this.gpa +
+        "\nAge: " + this.age +
+        "\nEmail: " + this.email);
+        System.out.println("Courses: ");
+        
+        for (Course course : this.courses) {
+            System.out.println("\n_________________\n");
+            course.GetCourse();
+            
+        }
+}
+    
+    public boolean AddCourse(Course course){
+        boolean checker = this.courses.add(course);
+        if(checker){
+            System.out.println("Course added succcesfully!!");
+            return checker;
+        }
+        System.err.println("Error occured((");
+        return checker;
+
+    }
+    public boolean withdrawFromCourse(int id){
+        boolean checker = this.courses.removeIf((course)-> course.getId() == id);
+        if(checker){
+            System.out.println("Course deleted succcesfully!!");
+            return checker;
+        }
+        System.err.println("Error occured((");
+        return checker;
+    }
+    public float CalculateGPA(){
+        int size = this.courses.size();
+        float overallGpa = 0;
+        for (Course course : this.courses) {
+            overallGpa += course.findValue();
+        }
+        overallGpa = overallGpa / (float) size;
+        return overallGpa;
 
     public void updateSemester(double[] grades) {
         if (grades == null || grades.length == 0) {
@@ -73,6 +112,7 @@ public class Student extends Object {
     public void setId(int id) {
         this.id = id;
     }
+
 
     public int getCoursesCovered() {
         return coursesCovered;
