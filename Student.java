@@ -1,54 +1,129 @@
-import java.util.*;
-public class Student extends People{
-    // fields
-    private float GPA;
-    private academicDetails acInfo;
-    private ArrayList<Course> takenCourses;
+import java.util.List;
 
-    // constructors
-    public Student(String fullName, String gender, String phone, Email email, int age, int ID, Date dateOfBirth, float GPA, academicDetails acInfo){
-        super(fullName, gender, phone, email, age, ID, dateOfBirth);
-        this.GPA = GPA;
-        this.acInfo = acInfo;
-        takenCourses = new ArrayList<Course>();
-    }
+public class Student extends Person {
+    private String name;
+    private int id; 
+    private int coursesCovered;
+    private double cgpa; 
+    private String major;
+    private List<String> subjects; 
+    private boolean onProbation; 
+    private double[] gpas = new double[12];
+    private int semester = 1;
 
-    //getter methods
-    public float getGPA() {
-        return GPA;
-    }
-    public academicDetails getAcInfo() {
-        return acInfo;
-    }
-    public ArrayList<Course> getTakenCourses() {
-        return takenCourses;
-    }
 
-    // setter methods
-    public void setGPA(float GPA) {
-        this.GPA = GPA;
-    }
-    public void setAcInfo(academicDetails acInfo) {
-        this.acInfo = acInfo;
+
+    Student(String name, int id, int coursesCovered, double cgpa, String major, List<String> subjects, boolean onProbation, int semester) {
+        if (id < 0|| cgpa < 0 || coursesCovered < 0) {
+            System.out.println("Negative values are not allowed for ID, GPA, CGPA, or coursesCovered.");
+        }
+        this.name = name;
+        this.id = id;
+        this.coursesCovered = coursesCovered;
+        this.cgpa = cgpa;
+        this.major = major;
+        this.subjects = subjects;
+        this.onProbation = onProbation;
+        this.semester = semester;
     }
 
-    // methods
-    public void addCourse(Course newCourse){
-        takenCourses.add(newCourse);
-    }
-    public void withdrawCourse(Course course){
-        takenCourses.remove(takenCourses.indexOf(course));
+    Student(String name, int id) {
+        this.name = name;
+        this.id = id;
     }
 
-    @Override
+
+    public void updateSemester(double[] grades) {
+        if (grades == null || grades.length == 0) {
+            System.out.println("Grades array is empty or null.");
+            return;
+        }
+        
+        double sum = 0;
+        for (double grade : grades) {
+            sum += grade;
+        }
+        double newGpa = sum / grades.length;
+
+        this.gpas[this.semester] = newGpa;
+        this.cgpa = (this.cgpa * this.coursesCovered + newGpa * grades.length) / (grades.length + this.coursesCovered);
+        this.coursesCovered += grades.length;
+        this.onProbation = this.cgpa < 2.5 && this.gpas[this.semester] < 2.5;
+    }
+
+
+
     public String toString() {
-        return super.toString() + "\n" + acInfo.toString() + "\nGPA: " + GPA + "\nNumber of Taken Courses: " + takenCourses.size(); 
+        return "Name: " + this.name + " CGPA: " + this.cgpa;
     }
 
-    public static void main(String[] args){
-        Student Khizri = new Student("Khizri Sakhrayev", "Male", "0555555555", new Email("ksakhrayev20578@ada.edu.az", "111"), 19, 20578, new Date(20, 2, 2006), 3.86f, new academicDetails("Undergraduate", "BS in Computer Science", "IT and Engineering", "Computer Science", 2024));
-        Course PP2 = new Course("PP2", 6, 20309, new People("Ismayil Shahaliyev", "Male", 0, null));
-        Khizri.addCourse(PP2);
-        System.out.println(Khizri);
+    public String getName() {
+        return name;
     }
-}
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getCoursesCovered() {
+        return coursesCovered;
+    }
+
+    public void setCoursesCovered(int coursesCovered) {
+        this.coursesCovered = coursesCovered;
+    }
+
+    public double getCgpa() {
+        return cgpa;
+    }
+
+    public void setCgpa(double cgpa) {
+        this.cgpa = cgpa;
+    }
+
+    public String getMajor() {
+        return major;
+    }
+
+    public void setMajor(String major) {
+        this.major = major;
+    }
+
+    public List<String> getSubjects() {
+        return subjects;
+    }
+
+    public void setSubjects(List<String> subjects) {
+        this.subjects = subjects;
+    }
+
+    public boolean isOnProbation() {
+        return onProbation;
+    }
+
+    public void setOnProbation(boolean onProbation) {
+        this.onProbation = onProbation;
+    }
+
+    public double[] getGpas() {
+        return gpas;
+    }
+
+    public void setGpas(double[] gpas) {
+        this.gpas = gpas;
+    }
+
+    public int getSemester() {
+        return semester;
+    }
+
+    public void setSemester(int semester) {
+        this.semester = semester;

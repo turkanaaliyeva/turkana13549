@@ -44,7 +44,3 @@ public class Course {
     @Override
     public String toString() {
         return "Name: " + name + "\nCredit Hours: " + creditHours + "\nCRN: " + CRN + "\nInstructor: " + instructor.getFullName();
-    }
-
-    
-}
