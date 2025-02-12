@@ -1,4 +1,7 @@
-public class Student {
+
+import java.util.List;
+
+public class Student extends Person {
     private String name;
     private int id; 
     private int coursesCovered;
@@ -207,6 +210,7 @@ public class Student {
     }
 
     public void setSemester(int semester) {
+        this.semester = semester;
         this.semester = semester;
     }
 }
