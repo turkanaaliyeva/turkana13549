@@ -1,3 +1,4 @@
+
 import java.util.List;
 
 public class Student extends Person {
@@ -10,8 +11,6 @@ public class Student extends Person {
     private boolean onProbation; 
     private double[] gpas = new double[12];
     private int semester = 1;
-
-
 
     Student(String name, int id, int coursesCovered, double cgpa, String major, List<String> subjects, boolean onProbation, int semester) {
         if (id < 0|| cgpa < 0 || coursesCovered < 0) {
@@ -32,19 +31,103 @@ public class Student extends Person {
         this.id = id;
     }
 
+    public void GetStudentInfo(){
+        System.out.println("Name: " + this.name +
+        "\nId: " + this.id +
+        "\nGPA: " + this.gpa +
+        "\nAge: " + this.age +
+        "\nEmail: " + this.email);
+        System.out.println("Courses: ");
+        
+        for (Course course : this.courses) {
+            System.out.println("\n_________________\n");
+            course.GetCourse();
+            
+        }
+}
+    
+    public boolean AddCourse(Course course){
+        boolean checker = this.courses.add(course);
+        if(checker){
+            System.out.println("Course added succcesfully!!");
+            return checker;
+        }
+        System.err.println("Error occured((");
+        return checker;
+
+    }
+    public boolean withdrawFromCourse(int id){
+        boolean checker = this.courses.removeIf((course)-> course.getId() == id);
+        if(checker){
+            System.out.println("Course deleted succcesfully!!");
+            return checker;
+        }
+        System.err.println("Error occured((");
+        return checker;
+    }
+    public float CalculateGPA(){
+        int size = this.courses.size();
+        float overallGpa = 0;
+        for (Course course : this.courses) {
+            overallGpa += course.findValue();
+        }
+        overallGpa = overallGpa / (float) size;
+        return overallGpa;
+
+    public void setAge(int age) {
+        if (age > 0) { 
+            this.age = age;
 
     public void updateSemester(double[] grades) {
         if (grades == null || grades.length == 0) {
             System.out.println("Grades array is empty or null.");
             return;
         }
-        
-        double sum = 0;
-        for (double grade : grades) {
-            sum += grade;
-        }
-        double newGpa = sum / grades.length;
+    }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public double getGpa() {
+        return gpa;
+    }
+
+    public void setGpa(double gpa) {
+        if (gpa >= 0.0 && gpa <= 4.0) { 
+            this.gpa = gpa;
+        }
+    }
+
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
+
+    public boolean isHonorStudent() {
+        return gpa >= 3.5;
+    }
+    
+    public void displayStudentInfo() {
+        System.out.println("Student ID: " + studentId);
+        System.out.println("Name: " + getFirstName()); 
+        System.out.println("Surname " + getLastName());
+        System.out.println("Age: " + age);
+        System.out.println("Email: " + email);
+        System.out.println("Phone: " + phoneNumber);
+        System.out.println("GPA: " + gpa);
+        System.out.println("Honor Student: " + (isHonorStudent() ? "Yes" : "No"));
         this.gpas[this.semester] = newGpa;
         this.cgpa = (this.cgpa * this.coursesCovered + newGpa * grades.length) / (grades.length + this.coursesCovered);
         this.coursesCovered += grades.length;
@@ -72,6 +155,7 @@ public class Student extends Person {
     public void setId(int id) {
         this.id = id;
     }
+
 
     public int getCoursesCovered() {
         return coursesCovered;
@@ -127,3 +211,6 @@ public class Student extends Person {
 
     public void setSemester(int semester) {
         this.semester = semester;
+        this.semester = semester;
+    }
+}
