@@ -11,6 +11,19 @@ public class Student extends Person {
     private boolean onProbation; 
     private double[] gpas = new double[12];
     private int semester = 1;
+    private double gpa;
+    private String email;
+    private List<String> courses;
+    private int age;
+    private String firstname;
+    private String lastname;
+    private double newgpa;
+    private String phoneNumber;
+    private double overallGpa;
+    
+
+
+
 
     Student(String name, int id, int coursesCovered, double cgpa, String major, List<String> subjects, boolean onProbation, int semester) {
         if (id < 0|| cgpa < 0 || coursesCovered < 0) {
