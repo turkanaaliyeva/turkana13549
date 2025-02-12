@@ -31,7 +31,11 @@ public class Room {
 
         @Override
         public String toString() {
-            return "Width: " + Integer.toString(width) + " \n length: " + Integer.toString(length) + "\n height: " + Integer.toString(height) + "\n";
+            StringBuilder sb = new StringBuilder();
+            sb.append("Width: ").append(Integer.toString(width))
+            .append(" \n length: ").append(Integer.toString(length))
+            .append("\n height: ").append(Integer.toString(height)).append("\n");
+            return sb.toString();
         }
     }
 
@@ -106,7 +110,9 @@ public class Room {
     private ArrayList <Equipment> eq;
     private boolean status;
 
-    public Room(int ID, String name, String loc, RoomType type, int width, int length, int height, ArrayList <Equipment> eq, boolean status) {
+    public Room(int ID, String name, String loc, 
+    RoomType type, int width, int length, int height, 
+    ArrayList <Equipment> eq, boolean status){
         this.ID = ID;
         this.name = name;
         this.loc = loc;
@@ -182,7 +188,14 @@ public class Room {
         if(this.status) s = "TRUE";
         else s = "FALSE";
 
-        return "ID: " + Integer.toString(this.ID)  + " \n Name: " + this.name + " \n Location: " + this.loc + " \n Room Type: " + tmtp_st(this.type) + " \n Dimension: " + this.dimension.toString() + " \n Equipment:" + eq_st(this.eq) + " \n" + "Status: " + s + "\n";
-        
+        StringBuilder sb = new StringBuilder();
+        sb.append("ID: ").append(Integer.toString(this.ID))
+        .append(" \n Name: ").append(this.name)
+        .append(" \n Location: ").append(this.loc)
+        .append(" \n Room Type: ").append(tmtp_st(this.type))
+        .append(" \n Dimension: ").append(this.dimension.toString())
+        .append(" \n Equipment:").append(eq_st(this.eq))
+        .append(" \n Status: ").append(s).append("\n");
+        return sb.toString();
     }
 }
