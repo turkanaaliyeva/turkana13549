@@ -1,3 +1,4 @@
+
 public class Staff {
     // Fields
     private double salary;

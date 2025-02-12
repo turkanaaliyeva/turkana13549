@@ -1,7 +1,8 @@
+
 import java.util.ArrayList;
 
 public class Faculty {
-    private String facultyID;
+    private int facultyID;
     private String firstName;
     private String secondName;
     private String email;
@@ -14,7 +15,7 @@ public class Faculty {
 
     private ArrayList<String> coursesTaught;
 
-    public Faculty(String facultyID, String firstName, String secondName, String email, String phoneNumber,
+    public Faculty(int facultyID, String firstName, String secondName, String email, String phoneNumber,
             String department, String position, String officeLocation, String hireDate, boolean availability) {
         this.facultyID = facultyID;
         this.firstName = firstName;
@@ -29,7 +30,17 @@ public class Faculty {
         this.coursesTaught = new ArrayList<>();
     }
 
-    public void setFacultyID(String facultyID) {
+    
+
+    public Faculty(int facultyID, String firstName, String secondName) {
+        this.facultyID = facultyID;
+        this.firstName = firstName;
+        this.secondName = secondName;
+    }
+
+
+
+    public void setFacultyID(int facultyID) {
         this.facultyID = facultyID;
     }
 
@@ -70,7 +81,7 @@ public class Faculty {
     }
 
 
-    public String getFacultyID() {
+    public int getFacultyID() {
         return facultyID;
     }
 
@@ -111,19 +122,15 @@ public class Faculty {
     }
 
 
-    public void displayFacultyInfo() {
-        System.out.println("-------------------------------------------------------------------");
-        System.out.println("Faculty ID: " + facultyID);
-        System.out.println("Name: " + firstName + " " + secondName);
-        System.out.println("Email: " + email);
-        System.out.println("Phone: " + phoneNumber);
-        System.out.println("Department: " + department);
-        System.out.println("Position: " + position);
-        System.out.println("Office Location: " + officeLocation);
-        System.out.println("Hire Date: " + hireDate);
-        System.out.println("Available: " + (availability ? "Yes" : "No"));
-        System.out.println("-------------------------------------------------------------------");
+    @Override
+    public String toString() {
+        return "Faculty [facultyID=" + facultyID + ", firstName=" + firstName + ", secondName=" + secondName
+                + ", email=" + email + ", phoneNumber=" + phoneNumber + ", department=" + department + ", position="
+                + position + ", officeLocation=" + officeLocation + ", hireDate=" + hireDate + ", availability="
+                + availability + ", coursesTaught=" + coursesTaught + "]";
     }
+
+
 
     public void changeAvailabilityStatus(boolean status){
         this.availability = status;
