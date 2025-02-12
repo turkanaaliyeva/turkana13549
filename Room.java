@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 public class Room {
 
@@ -54,10 +55,11 @@ public class Room {
     private String loc;
     private RoomType type;
     private Dimension dimension;
-    private Equipment[] eq;
+    //private Equipment[] eq;
+    private ArrayList <Equipment> eq;
     private boolean status;
 
-    public Room(int ID, String name, String loc, RoomType type, int width, int length, int height, Equipment[] eq, boolean status) {
+    public Room(int ID, String name, String loc, RoomType type, int width, int length, int height, ArrayList <Equipment> eq, boolean status) {
         this.ID = ID;
         this.name = name;
         this.loc = loc;
@@ -110,11 +112,11 @@ public class Room {
         this.dimension = dimension;
     }
 
-    public Equipment[] getEq() {
+    public ArrayList <Equipment> getEq() {
         return eq;
     }
 
-    public void setEq(Equipment[] eq) {
+    public void setEq(ArrayList <Equipment> eq) {
         this.eq = eq;
     }
 
