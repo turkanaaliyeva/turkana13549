@@ -66,8 +66,30 @@ public class Room {
         this.dimension.setWidth(width);
         this.dimension.setLength(length);
         this.dimension.setHeight(height);
-        this.eq = eq;
+        this.eq = eq != null ? eq : new ArrayList<Equipment>();
         this.status = status;
+    }
+
+    public String toString() {
+        return "Room{" +
+                "ID=" + ID +
+                ", name='" + name + '\'' +
+                ", loc='" + loc + '\'' +
+                ", type=" + type +
+                ", dimension=" + dimension + 
+                ", eq=" + formatEquipment() +
+                ", status=" + (status ? "Available" : "Occupied") +
+                '}';
+    }
+
+    public void addEquipment(Equipment equipment) {
+        if (!eq.contains(equipment)) {
+            eq.add(equipment);
+        }
+    }
+
+    public void removeEquipment(Equipment equipment) {
+        eq.remove(equipment);
     }
 
     public int getID() {
@@ -110,11 +132,11 @@ public class Room {
         this.dimension = dimension;
     }
 
-    public Equipment[] getEq() {
+    public ArrayList<Equipment> getEq() {
         return eq;
     }
 
-    public void setEq(Equipment[] eq) {
+    public void setEq(ArrayList<Equipment> eq) {
         this.eq = eq;
     }
 
@@ -126,3 +148,7 @@ public class Room {
         this.status = status;
     }
 }
+
+
+
+
