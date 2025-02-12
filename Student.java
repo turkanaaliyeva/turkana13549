@@ -1,16 +1,21 @@
+import java.util.Arrays;
+import java.util.List;
+
 public class Student {
     private String name;
-    private int id; 
+    private int id;
     private int coursesCovered;
-    private double cgpa; 
+    private double cgpa;
     private String major;
-    private List<String> subjects; 
-    private boolean onProbation; 
+    private List<String> subjects;
+    private boolean onProbation;
     private double[] gpas = new double[12];
     private int semester = 1;
+    private Course[] courses;
 
-    Student(String name, int id, int coursesCovered, double cgpa, String major, List<String> subjects, boolean onProbation, int semester) {
-        if (id < 0|| cgpa < 0 || coursesCovered < 0) {
+    Student(String name, int id, int coursesCovered, double cgpa, String major, List<String> subjects,
+            boolean onProbation, int semester) {
+        if (id < 0 || cgpa < 0 || coursesCovered < 0) {
             System.out.println("Negative values are not allowed for ID, GPA, CGPA, or coursesCovered.");
         }
         this.name = name;
@@ -21,6 +26,12 @@ public class Student {
         this.subjects = subjects;
         this.onProbation = onProbation;
         this.semester = semester;
+        this.courses = courses;
+    }
+
+    @Override
+    public String toString() {
+        return name + " " + "takes " + "courses " + Arrays.toString(courses);
     }
 
     Student(String name, int id) {
@@ -28,24 +39,24 @@ public class Student {
         this.id = id;
     }
 
-    public void GetStudentInfo(){
+    public void GetStudentInfo() {
         System.out.println("Name: " + this.name +
-        "\nId: " + this.id +
-        "\nGPA: " + this.gpa +
-        "\nAge: " + this.age +
-        "\nEmail: " + this.email);
+                "\nId: " + this.id +
+                "\nGPA: " + this.gpa +
+                "\nAge: " + this.age +
+                "\nEmail: " + this.email);
         System.out.println("Courses: ");
-        
+
         for (Course course : this.courses) {
             System.out.println("\n_________________\n");
             course.GetCourse();
-            
+
         }
-}
-    
-    public boolean AddCourse(Course course){
+    }
+
+    public boolean AddCourse(Course course) {
         boolean checker = this.courses.add(course);
-        if(checker){
+        if (checker) {
             System.out.println("Course added succcesfully!!");
             return checker;
         }
@@ -53,15 +64,17 @@ public class Student {
         return checker;
 
     }
-    public boolean withdrawFromCourse(int id){
-        boolean checker = this.courses.removeIf((course)-> course.getId() == id);
-        if(checker){
+
+    public boolean withdrawFromCourse(int id) {
+        boolean checker = this.courses.removeIf((course) -> course.getId() == id);
+        if (checker) {
             System.out.println("Course deleted succcesfully!!");
             return checker;
         }
         System.err.println("Error occured((");
         return checker;
     }
+
     public float CalculateGPA(){
         int size = this.courses.size();
         float overallGpa = 0;
@@ -74,8 +87,9 @@ public class Student {
     public void setAge(int age) {
         if (age > 0) { 
             this.age = age;
+        }
 
-    public void updateSemester(double[] grades) {
+    public updateSemester(double[] grades) {
         if (grades == null || grades.length == 0) {
             System.out.println("Grades array is empty or null.");
             return;
@@ -103,7 +117,7 @@ public class Student {
     }
 
     public void setGpa(double gpa) {
-        if (gpa >= 0.0 && gpa <= 4.0) { 
+        if (gpa >= 0.0 && gpa <= 4.0) {
             this.gpa = gpa;
         }
     }
@@ -115,10 +129,10 @@ public class Student {
     public boolean isHonorStudent() {
         return gpa >= 3.5;
     }
-    
+
     public void displayStudentInfo() {
         System.out.println("Student ID: " + studentId);
-        System.out.println("Name: " + getFirstName()); 
+        System.out.println("Name: " + getFirstName());
         System.out.println("Surname " + getLastName());
         System.out.println("Age: " + age);
         System.out.println("Email: " + email);
@@ -130,8 +144,6 @@ public class Student {
         this.coursesCovered += grades.length;
         this.onProbation = this.cgpa < 2.5 && this.gpas[this.semester] < 2.5;
     }
-
-
 
     public String toString() {
         return "Name: " + this.name + " CGPA: " + this.cgpa;
@@ -152,7 +164,6 @@ public class Student {
     public void setId(int id) {
         this.id = id;
     }
-
 
     public int getCoursesCovered() {
         return coursesCovered;
@@ -209,4 +220,5 @@ public class Student {
     public void setSemester(int semester) {
         this.semester = semester;
     }
+
 }
