@@ -1,13 +1,10 @@
 import java.util.List;
 
-public class Student {
-    private String name;
-    private int id;
+public class Student extends Person {
     private int coursesCovered;
     private double cgpa;
     private String major;
     private List<String> subjects;
-    private int age;
     private String email;
     private boolean onProbation;
     private double[] gpas = new double[12];
