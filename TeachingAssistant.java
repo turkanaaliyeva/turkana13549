@@ -1,36 +1,48 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 
 public class TeachingAssistant extends Staff {
-    private List<String> assignedCourses;
+    private String[] assignedCourses;
+    private int courseCount;
+    private static final int MAX_COURSES = 10;
     private Professor supervisor;
 
     public TeachingAssistant(String name, String department, double salary, String email, String phoneNumber, String officeNumber, Professor supervisor) {
         super(name, department, salary, "Active", "Teaching Assistant", email, phoneNumber, officeNumber);
         this.supervisor = supervisor;
-        this.assignedCourses = new ArrayList<>(); // Initialize the list
+        this.assignedCourses = new String[MAX_COURSES];
+        this.courseCount = 0;
     }
 
     public void assignToCourse(String course) {
-        if (!assignedCourses.contains(course)) {
-            assignedCourses.add(course);
+        if (courseCount < MAX_COURSES) {
+            for (int i = 0; i < courseCount; i++) {
+                if (assignedCourses[i].equals(course)) {
+                    System.out.println(this.getName() + " is already assigned to " + course);
+                    return;
+                }
+            }
+            assignedCourses[courseCount++] = course;
             System.out.println(this.getName() + " has been assigned to assist with the course: " + course);
         } else {
-            System.out.println(this.getName() + " is already assigned to " + course);
+            System.out.println("Cannot assign more courses. Maximum limit reached.");
         }
     }
 
     public void removeFromCourse(String course) {
-        if (assignedCourses.contains(course)) {
-            assignedCourses.remove(course);
-            System.out.println(this.getName() + " has been removed from assisting with the course: " + course);
-        } else {
-            System.out.println(this.getName() + " was not assigned to " + course);
+        for (int i = 0; i < courseCount; i++) {
+            if (assignedCourses[i].equals(course)) {
+                assignedCourses[i] = assignedCourses[courseCount - 1]; // Replace with last element
+                assignedCourses[courseCount - 1] = null; // Nullify last element
+                courseCount--;
+                System.out.println(this.getName() + " has been removed from assisting with the course: " + course);
+                return;
+            }
         }
+        System.out.println(this.getName() + " was not assigned to " + course);
     }
 
     public String[] getAssignedCoursesArray() {
-        return assignedCourses.toArray(new String[0]); // Convert list to array
+        return Arrays.copyOf(assignedCourses, courseCount);
     }
 
     public void holdOfficeHours() {
@@ -47,15 +59,13 @@ public class TeachingAssistant extends Staff {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Teaching Assistant: ").append(getName()).append("\n");
-        sb.append("Department: ").append(getDepartment()).append("\n");
-        sb.append("Salary: $").append(getSalary()).append("\n");
-        sb.append("Email: ").append(getEmail()).append("\n");
-        sb.append("Phone Number: ").append(getPhoneNumber()).append("\n");
-        sb.append("Office Number: ").append(getOfficeNumber()).append("\n");
-        sb.append("Supervisor: ").append(supervisor != null ? supervisor.getName() : "None").append("\n");
-        sb.append("Assigned Courses: ").append(!assignedCourses.isEmpty() ? String.join(", ", assignedCourses) : "None").append("\n");
-        return sb.toString();
+        return "Teaching Assistant: " + getName() + "\n" +
+               "Department: " + getDepartment() + "\n" +
+               "Salary: $" + getSalary() + "\n" +
+               "Email: " + getEmail() + "\n" +
+               "Phone Number: " + getPhoneNumber() + "\n" +
+               "Office Number: " + getOfficeNumber() + "\n" +
+               "Supervisor: " + (supervisor != null ? supervisor.getName() : "None") + "\n" +
+               "Assigned Courses: " + (courseCount > 0 ? String.join(", ", Arrays.copyOf(assignedCourses, courseCount)) : "None") + "\n";
     }
 }
