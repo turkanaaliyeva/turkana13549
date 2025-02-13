@@ -1,17 +1,22 @@
+import java.util.List;
+
 public class Student {
     private String name;
-    private int id; 
+    private int id;
     private int coursesCovered;
-    private double cgpa; 
+    private double cgpa;
     private String major;
-    private List<String> subjects; 
-    private boolean onProbation; 
+    private List<String> subjects;
+    private int age;
+    private String email;
+    private boolean onProbation;
     private double[] gpas = new double[12];
     private int semester = 1;
+    private List<Course> courses;
 
-    Student(String name, int id, int coursesCovered, double cgpa, String major, List<String> subjects, boolean onProbation, int semester) {
-        if (id < 0|| cgpa < 0 || coursesCovered < 0) {
-            System.out.println("Negative values are not allowed for ID, GPA, CGPA, or coursesCovered.");
+    public Student(String name, int id, int coursesCovered, double cgpa, String major, List<String> subjects, boolean onProbation, int semester) {
+        if (id < 0 || cgpa < 0 || coursesCovered < 0) {
+            throw new IllegalArgumentException("Negative values are not allowed for ID, CGPA, or coursesCovered.");
         }
         this.name = name;
         this.id = id;
@@ -23,62 +28,49 @@ public class Student {
         this.semester = semester;
     }
 
-    Student(String name, int id) {
+    public Student(String name, int id) {
         this.name = name;
         this.id = id;
     }
 
-    public void GetStudentInfo(){
-        System.out.println("Name: " + this.name +
-        "\nId: " + this.id +
-        "\nGPA: " + this.gpa +
-        "\nAge: " + this.age +
-        "\nEmail: " + this.email);
-        System.out.println("Courses: ");
-        
-        for (Course course : this.courses) {
-            System.out.println("\n_________________\n");
-            course.GetCourse();
-            
+    public boolean addCourse(Course course) {
+        if (courses == null) {
+            throw new IllegalStateException("Courses list is not initialized.");
         }
-}
-    
-    public boolean AddCourse(Course course){
-        boolean checker = this.courses.add(course);
-        if(checker){
-            System.out.println("Course added succcesfully!!");
-            return checker;
+        boolean checker = courses.add(course);
+        if (checker) {
+            System.out.println("Course added successfully!");
+        } else {
+            System.err.println("Error occurred.");
         }
-        System.err.println("Error occured((");
         return checker;
+    }
 
-    }
-    public boolean withdrawFromCourse(int id){
-        boolean checker = this.courses.removeIf((course)-> course.getId() == id);
-        if(checker){
-            System.out.println("Course deleted succcesfully!!");
-            return checker;
+    public boolean withdrawFromCourse(Course course) {
+        if (courses == null) {
+            throw new IllegalStateException("Courses list is not initialized.");
         }
-        System.err.println("Error occured((");
+        boolean checker = courses.remove(course);
+        if (checker) {
+            System.out.println("Course deleted successfully!");
+        } else {
+            System.err.println("Error occurred.");
+        }
         return checker;
     }
-    public float CalculateGPA(){
-        int size = this.courses.size();
-        float overallGpa = 0;
-        for (Course course : this.courses) {
-            overallGpa += course.findValue();
-        }
-        overallGpa = overallGpa / (float) size;
-        return overallGpa;
 
     public void setAge(int age) {
-        if (age > 0) { 
+        if (age > 0) {
             this.age = age;
+        }
+    }
+    public int getAge(){
+        return age;
+    }
 
     public void updateSemester(double[] grades) {
         if (grades == null || grades.length == 0) {
-            System.out.println("Grades array is empty or null.");
-            return;
+            throw new IllegalArgumentException("Grades array is empty or null.");
         }
     }
 
@@ -90,51 +82,9 @@ public class Student {
         this.email = email;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public double getGpa() {
-        return gpa;
-    }
-
-    public void setGpa(double gpa) {
-        if (gpa >= 0.0 && gpa <= 4.0) { 
-            this.gpa = gpa;
-        }
-    }
-
-    public String getFullName() {
-        return firstName + " " + lastName;
-    }
-
-    public boolean isHonorStudent() {
-        return gpa >= 3.5;
-    }
-    
-    public void displayStudentInfo() {
-        System.out.println("Student ID: " + studentId);
-        System.out.println("Name: " + getFirstName()); 
-        System.out.println("Surname " + getLastName());
-        System.out.println("Age: " + age);
-        System.out.println("Email: " + email);
-        System.out.println("Phone: " + phoneNumber);
-        System.out.println("GPA: " + gpa);
-        System.out.println("Honor Student: " + (isHonorStudent() ? "Yes" : "No"));
-        this.gpas[this.semester] = newGpa;
-        this.cgpa = (this.cgpa * this.coursesCovered + newGpa * grades.length) / (grades.length + this.coursesCovered);
-        this.coursesCovered += grades.length;
-        this.onProbation = this.cgpa < 2.5 && this.gpas[this.semester] < 2.5;
-    }
-
-
-
+    @Override
     public String toString() {
-        return "Name: " + this.name + " CGPA: " + this.cgpa;
+        return "Name: " + name + " CGPA: " + cgpa;
     }
 
     public String getName() {
@@ -152,7 +102,6 @@ public class Student {
     public void setId(int id) {
         this.id = id;
     }
-
 
     public int getCoursesCovered() {
         return coursesCovered;
