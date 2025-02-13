@@ -1,3 +1,5 @@
+import java.util.Date;
+
 public class People {
     // fields
     private String fullName;
@@ -69,8 +71,15 @@ public class People {
 
     @Override
     public String toString() {
-        String info = "Full Name: " + fullName + "\nAge: " + age + "\nGender: " + gender + "\nPhone number: " + phone + "\nEmail: " +email + "\nId: " + Id + "\nDate of Birth: " + dateOfBirth.getDate();
-        return info;
+        StringBuilder sb = new StringBuilder();
+        sb.append("Full Name: ").append(fullName).append("\n")
+          .append("Age: ").append(age).append("\n")
+          .append("Gender: ").append(gender).append("\n")
+          .append("Phone number: ").append(phone).append("\n")
+          .append("Email: ").append(email).append("\n")
+          .append("Id: ").append(Id).append("\n")
+          .append("Date of Birth: ").append(dateOfBirth.getDate());
+        return sb.toString();
     }
 
     public String getEmail() {
@@ -80,5 +89,4 @@ public class People {
     public void setEmail(String email) {
         this.email = email;
     }
-    
 }
