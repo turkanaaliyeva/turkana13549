@@ -33,12 +33,12 @@ public class StudentService {
             }
             System.out.println("Available courses:");
             for (int i = 0; i < availableCourses.size(); i++) {
-                System.out.println((i + 1) + ". " + availableCourses.get(i).getCourseName());
+                System.out.println((i + 1) + ". " + availableCourses.get(i).getName());
             }
             System.out.print("Choose a course number to enroll: ");
             int choice = sc.nextInt();
             if (choice > 0 && choice <= availableCourses.size()) {
-                student.AddCourse(availableCourses.get(choice - 1));
+                student.addCourse(availableCourses.get(choice - 1));
                 System.out.println("Successfully enrolled in the course!");
             } else {
                 System.err.println("Invalid choice!");
@@ -56,14 +56,14 @@ public class StudentService {
     public void printStudentInfo(int studentId) {
         Student student = getStudentById(studentId);
         if (student != null) {
-            student.GetStudentInfo();
+            student.toString();
         }
     }
 
     public float calculateStudentGPA(int studentId) {
         Student student = getStudentById(studentId);
         if (student != null) {
-            return student.CalculateGPA();
+            return (float) student.calculateGPA();
         }
         return 0.0f;
     }
@@ -98,7 +98,7 @@ class AdminService {
         int age = sc.nextInt();
         sc.nextLine();
         System.out.print("Enter student email: ");
-        String email = sc.nextLine();
+        String email = sc.next();
         
         Student student = new Student(name, id, gpa, age, email);
         studentService.students.add(student);
@@ -106,15 +106,22 @@ class AdminService {
     }
 
     public void addCourse() {
+     
         System.out.print("Enter course name: ");
         String courseName = sc.nextLine();
+        System.out.println("Enter the description");
+        String description = sc.nextLine();
+        System.out.print("Enter course code: ");
+int courseCode = sc.nextInt();
         System.out.print("Enter credit score: ");
         int creditScore = sc.nextInt();
+        System.out.println("Enter the max number of Students");
+int numberOfStudents = sc.nextInt();
         System.out.print("Enter grade: ");
-        float grade = sc.nextFloat();
-        sc.nextLine();
-        
-        Course course = new Course(courseName, creditScore, grade);
+
+        char passingGrade = sc.next().charAt(0);
+       
+        Course course = new  Course(courseName, description, courseCode, creditScore, numberOfStudents,passingGrade );
         courses.add(course);
         studentService.addAvailableCourse(course);
         System.out.println("Course added successfully!");

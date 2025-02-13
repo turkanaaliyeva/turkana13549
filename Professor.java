@@ -26,6 +26,6 @@ public class Professor extends Staff {
     }
 
     public void gradeStudent(Student student, double grade) {
-        System.out.println("Professor " + this.getName() + " graded student " + student.getName() + " with " + grade);
+        System.out.println("Professor " + this.getName() + " graded student " + student.getFullName() + " with " + grade);
     }
 }
