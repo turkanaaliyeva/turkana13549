@@ -6,12 +6,39 @@ import java.util.List;
 public class Student extends People {
     private double cgpa;
     private String major;
+    private List<String> subjects; 
+    private boolean onProbation; 
+    private double[] gpas = new double[12];
+    private int semester = 1;
+    private double gpa;
+    private String email;
+    private List<String> courses;
+    private int age;
+    private String firstname;
+    private String lastname;
+    private double newgpa;
+    private String phoneNumber;
+    private double overallGpa;
+    
+
+
+
+
+    Student(String name, int id, int coursesCovered, double cgpa, String major, List<String> subjects, boolean onProbation, int semester) {
+        if (id < 0|| cgpa < 0 || coursesCovered < 0) {
+            System.out.println("Negative values are not allowed for ID, GPA, CGPA, or coursesCovered.");
+        }
+        this.name = name;
+        this.id = id;
+        this.coursesCovered = coursesCovered;
+        this.cgpa = cgpa;
+
     private List<Course> courses;
     private boolean onProbation;
     private double[] gpas;
     private int semester;
 
-    // Constructor
+
     public Student(String fullName, String gender, String phone, String email, int age, int Id, 
                    Date dateOfBirth, String major, int semester) {
         super(fullName, gender, phone, email,Id, age, dateOfBirth);
