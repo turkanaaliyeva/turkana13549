@@ -6,10 +6,12 @@ import java.util.List;
 public class Student extends People {
     private double cgpa;
     private String major;
-    private List<String> subjects; 
-    private boolean onProbation; 
+    private List<String> subjects;
+    private String email;
+    private boolean onProbation;
     private double[] gpas = new double[12];
     private int semester = 1;
+    private List<Course> courses;
     private double gpa;
     private String email;
     private List<String> courses;
@@ -19,49 +21,52 @@ public class Student extends People {
     private double newgpa;
     private String phoneNumber;
     private double overallGpa;
-    
 
-
-
-
-    Student(String name, int id, int coursesCovered, double cgpa, String major, List<String> subjects, boolean onProbation, int semester) {
-        if (id < 0|| cgpa < 0 || coursesCovered < 0) {
-            System.out.println("Negative values are not allowed for ID, GPA, CGPA, or coursesCovered.");
+    public Student(String name, int id, int coursesCovered, double cgpa, String major, List<String> subjects, boolean onProbation, int semester) {
+        if (id < 0 || cgpa < 0 || coursesCovered < 0) {
+            throw new IllegalArgumentException("Negative values are not allowed for ID, CGPA, or coursesCovered.");
         }
         this.name = name;
         this.id = id;
         this.coursesCovered = coursesCovered;
         this.cgpa = cgpa;
 
-    private List<Course> courses;
-    private boolean onProbation;
-    private double[] gpas;
-    private int semester;
-
-
-    public Student(String fullName, String gender, String phone, String email, int age, int Id, 
-                   Date dateOfBirth, String major, int semester) {
-        super(fullName, gender, phone, email,Id, age, dateOfBirth);
-        this.major = major;
-        this.semester = semester;
-        this.cgpa = 0.0;
-        this.onProbation = false;
-        this.courses = new ArrayList<>();
-        this.gpas = new double[12]; // Assuming max 12 semesters
+    public Student(String name, int id) {
+        this.name = name;
+        this.id = id;
     }
 
-
-   
-
-
-    public Student(String fullName, int Id, float gpa, int age, String email) {
-        super(fullName, Id, age, email);
-
-
+    public boolean addCourse(Course course) {
+        if (courses == null) {
+            throw new IllegalStateException("Courses list is not initialized.");
+        }
+        boolean checker = courses.add(course);
+        if (checker) {
+            System.out.println("Course added successfully!");
+        } else {
+            System.err.println("Error occurred.");
+        }
+        return checker;
     }
 
-
-
+    public boolean withdrawFromCourse(Course course) {
+        if (courses == null) {
+            throw new IllegalStateException("Courses list is not initialized.");
+        }
+        boolean checker = courses.remove(course);
+        if (checker) {
+            System.out.println("Course deleted successfully!");
+        } else {
+            System.err.println("Error occurred.");
+        }
+        return checker;
+    }
+      
+    public void updateSemester(double[] grades) {
+        if (grades == null || grades.length == 0) {
+            throw new IllegalArgumentException("Grades array is empty or null.");
+        }
+    }
 
 
     // Add Course
@@ -102,6 +107,15 @@ public class Student extends People {
         return gpa;
     }
 
+
+    public int getCoursesCovered() {
+        return coursesCovered;
+    }
+
+    public void setCoursesCovered(int coursesCovered) {
+        this.coursesCovered = coursesCovered;
+    }
+
     // Update Semester
     public void updateSemester(double[] grades) {
         if (grades == null || grades.length == 0) {
@@ -122,8 +136,6 @@ public class Student extends People {
     }
 
     // Getters & Setters
-
-
     public double getCgpa() { return cgpa; }
     public void setCgpa(double cgpa) { this.cgpa = cgpa; }
 
@@ -141,7 +153,22 @@ public class Student extends People {
 
     public int getSemester() { return semester; }
     public void setSemester(int semester) { this.semester = semester; }
+      
+    public void setAge(int age) {
+        if (age > 0) {
+            this.age = age;
+        }
+    }
+    public int getAge(){
+        return age;
+    }
 
+    public String getEmail() {
+        return email;
+    }
+    public String getName() {
+        return name;
+    }
 
     @Override
     public String toString() {
