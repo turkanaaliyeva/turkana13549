@@ -1,11 +1,10 @@
-
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-public class Student extends Person {
-    private String name;
-    private int id; 
-    private int coursesCovered;
-    private double cgpa; 
+public class Student extends People {
+    private double cgpa;
     private String major;
     private List<String> subjects; 
     private boolean onProbation; 
@@ -33,197 +32,122 @@ public class Student extends Person {
         this.id = id;
         this.coursesCovered = coursesCovered;
         this.cgpa = cgpa;
+
+    private List<Course> courses;
+    private boolean onProbation;
+    private double[] gpas;
+    private int semester;
+
+
+    public Student(String fullName, String gender, String phone, String email, int age, int Id, 
+                   Date dateOfBirth, String major, int semester) {
+        super(fullName, gender, phone, email,Id, age, dateOfBirth);
         this.major = major;
-        this.subjects = subjects;
-        this.onProbation = onProbation;
         this.semester = semester;
+        this.cgpa = 0.0;
+        this.onProbation = false;
+        this.courses = new ArrayList<>();
+        this.gpas = new double[12]; // Assuming max 12 semesters
     }
 
-    Student(String name, int id) {
-        this.name = name;
-        this.id = id;
+
+   
+
+
+    public Student(String fullName, int Id, float gpa, int age, String email) {
+        super(fullName, Id, age, email);
+
+
     }
 
-    public void GetStudentInfo(){
-        System.out.println("Name: " + this.name +
-        "\nId: " + this.id +
-        "\nGPA: " + this.gpa +
-        "\nAge: " + this.age +
-        "\nEmail: " + this.email);
-        System.out.println("Courses: ");
-        
-        for (Course course : this.courses) {
-            System.out.println("\n_________________\n");
-            course.GetCourse();
-            
+
+
+
+
+    // Add Course
+    public boolean addCourse(Course course) {
+        if (course != null) {
+            courses.add(course);
+            System.out.println("Course added successfully: " + course.getName());
+            return true;
         }
-}
-    
-    public boolean AddCourse(Course course){
-        boolean checker = this.courses.add(course);
-        if(checker){
-            System.out.println("Course added succcesfully!!");
-            return checker;
+        System.err.println("Error: Course is invalid.");
+        return false;
+    }
+
+    // Withdraw from Course
+    public boolean withdrawFromCourse(int courseId) {
+        boolean removed = courses.removeIf(course -> course.getCourseCode() == courseId);
+        if (removed) {
+            System.out.println("Course removed successfully!");
+            return true;
         }
-        System.err.println("Error occured((");
-        return checker;
-
+        System.err.println("Error: Course not found.");
+        return false;
     }
-    public boolean withdrawFromCourse(int id){
-        boolean checker = this.courses.removeIf((course)-> course.getId() == id);
-        if(checker){
-            System.out.println("Course deleted succcesfully!!");
-            return checker;
+
+    // Calculate GPA
+    public double calculateGPA() {
+        if (courses.isEmpty()) {
+            System.out.println("No courses enrolled. GPA is 0.0");
+            return 0.0;
         }
-        System.err.println("Error occured((");
-        return checker;
-    }
-    public float CalculateGPA(){
-        int size = this.courses.size();
-        float overallGpa = 0;
-        for (Course course : this.courses) {
-            overallGpa += course.findValue();
+
+        double totalPoints = 0;
+        for (Course course : courses) {
+            totalPoints += course.getcredits();  //find the credit of course
         }
-        overallGpa = overallGpa / (float) size;
-        return overallGpa;
-
-    public void setAge(int age) {
-        if (age > 0) { 
-            this.age = age;
-
-    public void updateSemester(double[] grades) {
-        if (grades == null || grades.length == 0) {
-            System.out.println("Grades array is empty or null.");
-            return;
-        }
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public double getGpa() {
+        double gpa = totalPoints / courses.size();
+        this.gpas[this.semester - 1] = gpa; // Store GPA for the current semester
         return gpa;
     }
 
-    public void setGpa(double gpa) {
-        if (gpa >= 0.0 && gpa <= 4.0) { 
-            this.gpa = gpa;
+    // Update Semester
+    public void updateSemester(double[] grades) {
+        if (grades == null || grades.length == 0) {
+            System.out.println("No grades provided.");
+            return;
         }
+
+        double newGpa = 0;
+        for (double grade : grades) {
+            newGpa += grade;
+        }
+        newGpa /= grades.length;
+
+        this.gpas[this.semester - 1] = newGpa;
+        this.cgpa = (this.cgpa * semester + newGpa) / (semester + 1);
+        this.onProbation = this.cgpa < 2.5 && newGpa < 2.5;
+        this.semester++;
     }
 
-    public String getFullName() {
-        return firstName + " " + lastName;
-    }
-
-    public boolean isHonorStudent() {
-        return gpa >= 3.5;
-    }
-    
-    public void displayStudentInfo() {
-        System.out.println("Student ID: " + studentId);
-        System.out.println("Name: " + getFirstName()); 
-        System.out.println("Surname " + getLastName());
-        System.out.println("Age: " + age);
-        System.out.println("Email: " + email);
-        System.out.println("Phone: " + phoneNumber);
-        System.out.println("GPA: " + gpa);
-        System.out.println("Honor Student: " + (isHonorStudent() ? "Yes" : "No"));
-        this.gpas[this.semester] = newGpa;
-        this.cgpa = (this.cgpa * this.coursesCovered + newGpa * grades.length) / (grades.length + this.coursesCovered);
-        this.coursesCovered += grades.length;
-        this.onProbation = this.cgpa < 2.5 && this.gpas[this.semester] < 2.5;
-    }
+    // Getters & Setters
 
 
+    public double getCgpa() { return cgpa; }
+    public void setCgpa(double cgpa) { this.cgpa = cgpa; }
 
+    public String getMajor() { return major; }
+    public void setMajor(String major) { this.major = major; }
+
+    public List<Course> getCourses() { return courses; }
+    public void setCourses(List<Course> courses) { this.courses = courses; }
+
+    public boolean isOnProbation() { return onProbation; }
+    public void setOnProbation(boolean onProbation) { this.onProbation = onProbation; }
+
+    public double[] getGpas() { return gpas; }
+    public void setGpas(double[] gpas) { this.gpas = gpas; }
+
+    public int getSemester() { return semester; }
+    public void setSemester(int semester) { this.semester = semester; }
+
+
+    @Override
     public String toString() {
-        return "Name: " + this.name + " CGPA: " + this.cgpa;
+        return "Student [cgpa=" + cgpa + ", major=" + major + ", courses=" + courses + ", onProbation=" + onProbation
+                + ", gpas=" + Arrays.toString(gpas) + ", semester=" + semester + ", getFullName()=" + getFullName()
+                + ", getEmail()=" + getEmail() + ", getID()=" + getId() + "]";
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-
-    public int getCoursesCovered() {
-        return coursesCovered;
-    }
-
-    public void setCoursesCovered(int coursesCovered) {
-        this.coursesCovered = coursesCovered;
-    }
-
-    public double getCgpa() {
-        return cgpa;
-    }
-
-    public void setCgpa(double cgpa) {
-        this.cgpa = cgpa;
-    }
-
-    public String getMajor() {
-        return major;
-    }
-
-    public void setMajor(String major) {
-        this.major = major;
-    }
-
-    public List<String> getSubjects() {
-        return subjects;
-    }
-
-    public void setSubjects(List<String> subjects) {
-        this.subjects = subjects;
-    }
-
-    public boolean isOnProbation() {
-        return onProbation;
-    }
-
-    public void setOnProbation(boolean onProbation) {
-        this.onProbation = onProbation;
-    }
-
-    public double[] getGpas() {
-        return gpas;
-    }
-
-    public void setGpas(double[] gpas) {
-        this.gpas = gpas;
-    }
-
-    public int getSemester() {
-        return semester;
-    }
-
-    public void setSemester(int semester) {
-        this.semester = semester;
-        this.semester = semester;
-    }
 }
