@@ -9,6 +9,9 @@ public class Course {
     private int credits;
     private int numberOfStudents;
     private char passingGrade;
+    private String[] studentNames;
+    private String[] topics;
+    private int[] prerequisiteCourses;
     private List<Course> courses = new ArrayList<>();
 
     public Course() {
@@ -16,23 +19,30 @@ public class Course {
     }
 
     public Course(String name, String description, int courseCode, int credits, int numberOfStudents,
-            char passingGrade) {
+            char passingGrade, String[] studentNames, String[] topics, int[] prerequisiteCourses) {
         this.name = name;
         this.description = description;
         this.courseCode = courseCode;
         this.credits = credits;
         this.numberOfStudents = numberOfStudents;
         this.passingGrade = passingGrade;
+        this.studentNames = studentNames;
+        this.topics = topics;
+        this.prerequisiteCourses = prerequisiteCourses;
     }
 
+    @Override
     public String toString() {
-        return "Course{" + "name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", courseCode=" + courseCode +
-                ", credits=" + credits +
-                ", numberOfStudents=" + numberOfStudents +
-                ", passingGrade=" + passingGrade +
-                '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("Course{")
+                .append("name='").append(name).append('\'')
+                .append(", description='").append(description).append('\'')
+                .append(", courseCode=").append(courseCode)
+                .append(", credits=").append(credits)
+                .append(", numberOfStudents=").append(numberOfStudents)
+                .append(", passingGrade=").append(passingGrade)
+                .append('}');
+        return sb.toString();
     }
 
     public List<Course> getCourses() {
@@ -90,9 +100,36 @@ public class Course {
     public void setPassingGrade(char passingGrade) {
         this.passingGrade = passingGrade;
     }
+    
+    public void setStudentNames(String[] studentNames) {
+        this.studentNames = studentNames;
+    }
+    
+    public String[] getStudentNames() {
+        return studentNames;
+    }
 
-    public List<Course> addCourse(String name, String description, int courseCode, int credits, int numberOfStudents, char passingGrade) {
-        Course course = new Course(name, description, courseCode, credits, numberOfStudents, passingGrade);
+    public void setTopics(String[] topics) {
+        this.topics = topics;
+    }
+    
+    public String[] getTopics() {
+        return topics;
+    }
+
+    public void setPrerequisiteCourses(int[] prerequisiteCourses) {
+        this.prerequisiteCourses = prerequisiteCourses;
+    }
+    
+    public int[] getPrerequisiteCourses() {
+        return prerequisiteCourses;
+    }
+        
+    
+
+    public List<Course> addCourse(String name, String description, int courseCode, int credits, int numberOfStudents,
+            char passingGrade) {
+        Course course = new Course(name, description, courseCode, credits, numberOfStudents, passingGrade, studentNames, topics, prerequisiteCourses);
         courses.add(course);
         System.out.println(courses);
         return courses;
