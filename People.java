@@ -3,28 +3,28 @@ public class People {
     private String fullName;
     private String gender;
     private String phone;
-    private Email email;
-    private int ID;
+    private String email;
+    private int Id;
     private int age;
     private Date dateOfBirth;
 
-    // constructors
-    public People(String fullName, String gender, int age, Email email){
-        this.fullName = fullName;
-        this.gender = gender;
-        this.age = age;
-        this.email = email;
-    }
-
-    public People(String fullName, String gender, String phone, Email email, int age, int ID, Date dateOfBirth){
+    public People(String fullName, String gender, String phone, String email, int Id, int age, Date dateOfBirth) {
         this.fullName = fullName;
         this.gender = gender;
         this.phone = phone;
         this.email = email;
+        this.Id = Id;
         this.age = age;
-        this.ID = ID;
         this.dateOfBirth = dateOfBirth;
     }
+
+    public People(String fullName, int Id, int age, String email) {
+        this.fullName = fullName;
+        this.email = email;
+        this.Id = Id;
+        this.age = age;
+    }
+
     // getter methods
     public String getFullName(){
         return fullName;
@@ -35,14 +35,12 @@ public class People {
     public String getPhone() {
         return phone;
     }
-    public Email getEmail() {
-        return email;
-    }
+  
     public int getAge(){
         return age;
     }
-    public int getID(){
-        return ID;
+    public int getId(){
+        return Id;
     }
     public Date getDateOfBirth(){
         return dateOfBirth;
@@ -58,14 +56,12 @@ public class People {
     public void setPhone(String phone) {
         this.phone = phone;
     }
-    public void setEmail(Email email) {
-        this.email = email;
+   
+    public void setAge(int age){
+        this.age = age;
     }
-    public void setAge(int newAge){
-        age = newAge;
-    }
-    public void setID(int newID){
-        ID = newID;
+    public void setId(int Id){
+        this.Id = Id;
     }
     public void setDateOfBirth(Date newDateOfBirth){
         dateOfBirth = newDateOfBirth;
@@ -73,8 +69,16 @@ public class People {
 
     @Override
     public String toString() {
-        String info = "Full Name: " + fullName + "\nAge: " + age + "\nGender: " + gender + "\nPhone number: " + phone + "\nEmail: " + email.getEmail() + "\nID: " + ID + "\nDate of Birth: " + dateOfBirth.getDate();
+        String info = "Full Name: " + fullName + "\nAge: " + age + "\nGender: " + gender + "\nPhone number: " + phone + "\nEmail: " +email + "\nId: " + Id + "\nDate of Birth: " + dateOfBirth.getDate();
         return info;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
     
 }

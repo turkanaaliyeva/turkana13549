@@ -2,19 +2,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Staff {
-    // Fields
     private double salary;
     private String phoneNumber;
-
-    // Public fields
-    public String status;
-    public String role;
-    public String email;
-    public String officeNumber;
-    public String name;
-    public String department;
-
-    private ArrayList<Room> assignedRooms;
+    public String status, role, email, officeNumber, name, department;
+    private List<Room> assignedRooms;
 
     public Staff(String name, String department) {
         this.name = name;
