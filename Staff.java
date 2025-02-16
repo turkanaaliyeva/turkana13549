@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.List;
 
 public class Staff {
@@ -129,6 +128,9 @@ public class Staff {
         }
         this.email = email;
     }
+    public String getEmail(){
+        return email;
+    }
 
     // Office Number
     public void setOfficeNumber(String officeNumber) {
@@ -137,6 +139,9 @@ public class Staff {
             return; // Do nothing, prevent the operation
         }
         this.officeNumber = officeNumber;
+    }
+    public String getOfficeNumber(){
+        return officeNumber;
     }
 
     public void assignRoom(Room room) {
