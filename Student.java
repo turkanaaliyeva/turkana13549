@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Student extends People {
+public class Student extends Person {
     private double cgpa;
     private String major;
     private List<Course> courses;
@@ -17,9 +17,9 @@ public class Student extends People {
     private String[] instructors = new String[20]; // List of instructors
 
     // Constructor
-    public Student(String fullName, String gender, String phone, String email, int age, int id, 
-                   LocalDate dateOfBirth, String major, int semester) {
-        super(fullName, gender, phone, email, id, age, dateOfBirth);
+    public Student(String fullName, String gender, String phone, Email email, int age, int id, 
+                   Date dateOfBirth, String major, int semester) {
+        super(fullName, gender, phone, email, age, id, dateOfBirth);
         this.major = major;
         this.semester = semester;
         this.cgpa = 0.0;
@@ -29,8 +29,8 @@ public class Student extends People {
     }
 
     // Secondary Constructor
-    public Student(String fullName, int id, float gpa, int age, String email) {
-        super(fullName, id, age, email);
+    public Student(String fullName, String gender, int age, Email email) {
+        super(fullName, gender, age, email);
     }
 
     // Add Course
@@ -64,7 +64,7 @@ public class Student extends People {
 
         double totalPoints = 0;
         for (Course course : courses) {
-            totalPoints += course.getCredits(); // Assuming 'getCredits()' returns the course credit
+            totalPoints += course.getcredits(); // Assuming 'getCredits()' returns the course credit
         }
         double gpa = totalPoints / courses.size();
         this.gpas[this.semester - 1] = gpa; // Store GPA for the current semester
@@ -122,7 +122,7 @@ public class Student extends People {
         StringBuilder sb = new StringBuilder();
         
         // Basic student details
-        sb.append("Student ID: ").append(getId()).append("\n");
+        sb.append("Student ID: ").append(getID()).append("\n");
         sb.append("Name: ").append(getFullName()).append("\n");
         sb.append("Major: ").append(major).append("\n");
         sb.append("CGPA: ").append(cgpa).append("\n");
