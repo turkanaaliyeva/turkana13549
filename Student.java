@@ -6,68 +6,32 @@ import java.util.List;
 public class Student extends People {
     private double cgpa;
     private String major;
-    private List<String> subjects;
-    private String email;
-    private boolean onProbation;
-    private double[] gpas = new double[12];
-    private int semester = 1;
     private List<Course> courses;
-    private double gpa;
-    private String email;
-    private List<String> courses;
-    private int age;
-    private String firstname;
-    private String lastname;
-    private double newgpa;
-    private String phoneNumber;
-    private double overallGpa;
+    private boolean onProbation;
+    private double[] gpas;
+    private int semester;
 
-    public Student(String name, int id, int coursesCovered, double cgpa, String major, List<String> subjects, boolean onProbation, int semester) {
-        if (id < 0 || cgpa < 0 || coursesCovered < 0) {
-            throw new IllegalArgumentException("Negative values are not allowed for ID, CGPA, or coursesCovered.");
-        }
-        this.name = name;
-        this.id = id;
-        this.coursesCovered = coursesCovered;
-        this.cgpa = cgpa;
+    // Newly Added Arrays
+    private double[] semesterGPAs = new double[12]; // GPA history for 12 semesters
+    private String[] completedCourses = new String[20]; // List of completed courses
+    private String[] instructors = new String[20]; // List of instructors
 
-    public Student(String name, int id) {
-        this.name = name;
-        this.id = id;
+    // Constructor
+    public Student(String fullName, String gender, String phone, String email, int age, int id, 
+                   LocalDate dateOfBirth, String major, int semester) {
+        super(fullName, gender, phone, email, id, age, dateOfBirth);
+        this.major = major;
+        this.semester = semester;
+        this.cgpa = 0.0;
+        this.onProbation = false;
+        this.courses = new ArrayList<>();
+        this.gpas = new double[12]; // Assuming a max of 12 semesters
     }
 
-    public boolean addCourse(Course course) {
-        if (courses == null) {
-            throw new IllegalStateException("Courses list is not initialized.");
-        }
-        boolean checker = courses.add(course);
-        if (checker) {
-            System.out.println("Course added successfully!");
-        } else {
-            System.err.println("Error occurred.");
-        }
-        return checker;
+    // Secondary Constructor
+    public Student(String fullName, int id, float gpa, int age, String email) {
+        super(fullName, id, age, email);
     }
-
-    public boolean withdrawFromCourse(Course course) {
-        if (courses == null) {
-            throw new IllegalStateException("Courses list is not initialized.");
-        }
-        boolean checker = courses.remove(course);
-        if (checker) {
-            System.out.println("Course deleted successfully!");
-        } else {
-            System.err.println("Error occurred.");
-        }
-        return checker;
-    }
-      
-    public void updateSemester(double[] grades) {
-        if (grades == null || grades.length == 0) {
-            throw new IllegalArgumentException("Grades array is empty or null.");
-        }
-    }
-
 
     // Add Course
     public boolean addCourse(Course course) {
@@ -100,20 +64,11 @@ public class Student extends People {
 
         double totalPoints = 0;
         for (Course course : courses) {
-            totalPoints += course.getcredits();  //find the credit of course
+            totalPoints += course.getCredits(); // Assuming 'getCredits()' returns the course credit
         }
         double gpa = totalPoints / courses.size();
         this.gpas[this.semester - 1] = gpa; // Store GPA for the current semester
         return gpa;
-    }
-
-
-    public int getCoursesCovered() {
-        return coursesCovered;
-    }
-
-    public void setCoursesCovered(int coursesCovered) {
-        this.coursesCovered = coursesCovered;
     }
 
     // Update Semester
@@ -123,15 +78,13 @@ public class Student extends People {
             return;
         }
 
-        double newGpa = 0;
-        for (double grade : grades) {
-            newGpa += grade;
-        }
-        newGpa /= grades.length;
-
+        double newGpa = Arrays.stream(grades).average().orElse(0.0);
         this.gpas[this.semester - 1] = newGpa;
-        this.cgpa = (this.cgpa * semester + newGpa) / (semester + 1);
+
+        // Calculate cumulative GPA
+        this.cgpa = ((this.cgpa * (semester - 1)) + newGpa) / semester;
         this.onProbation = this.cgpa < 2.5 && newGpa < 2.5;
+
         this.semester++;
     }
 
@@ -153,28 +106,48 @@ public class Student extends People {
 
     public int getSemester() { return semester; }
     public void setSemester(int semester) { this.semester = semester; }
-      
-    public void setAge(int age) {
-        if (age > 0) {
-            this.age = age;
-        }
-    }
-    public int getAge(){
-        return age;
-    }
 
-    public String getEmail() {
-        return email;
-    }
-    public String getName() {
-        return name;
-    }
+    public double[] getSemesterGPAs() { return semesterGPAs; }
+    public void setSemesterGPAs(double[] semesterGPAs) { this.semesterGPAs = semesterGPAs; }
 
+    public String[] getCompletedCourses() { return completedCourses; }
+    public void setCompletedCourses(String[] completedCourses) { this.completedCourses = completedCourses; }
+
+    public String[] getInstructors() { return instructors; }
+    public void setInstructors(String[] instructors) { this.instructors = instructors; }
+
+    // Overridden toString using StringBuilder
     @Override
     public String toString() {
-        return "Student [cgpa=" + cgpa + ", major=" + major + ", courses=" + courses + ", onProbation=" + onProbation
-                + ", gpas=" + Arrays.toString(gpas) + ", semester=" + semester + ", getFullName()=" + getFullName()
-                + ", getEmail()=" + getEmail() + ", getID()=" + getId() + "]";
-    }
+        StringBuilder sb = new StringBuilder();
+        
+        // Basic student details
+        sb.append("Student ID: ").append(getId()).append("\n");
+        sb.append("Name: ").append(getFullName()).append("\n");
+        sb.append("Major: ").append(major).append("\n");
+        sb.append("CGPA: ").append(cgpa).append("\n");
+        sb.append("Semester: ").append(semester).append("\n");
+        sb.append("Courses Covered: ").append(courses.size()).append("\n");
 
+        // Display enrolled courses
+        sb.append("Enrolled Courses: ");
+        if (courses.isEmpty()) {
+            sb.append("None\n");
+        } else {
+            for (Course course : courses) {
+                sb.append(course.getName()).append(", ");
+            }
+            sb.delete(sb.length() - 2, sb.length()).append("\n"); // Remove last comma
+        }
+
+        // Append arrays
+        sb.append("Semester GPAs: ").append(Arrays.toString(semesterGPAs)).append("\n");
+        sb.append("Completed Courses: ").append(Arrays.toString(completedCourses)).append("\n");
+        sb.append("Instructors: ").append(Arrays.toString(instructors)).append("\n");
+
+        // Probation status
+        sb.append("On Probation: ").append(onProbation ? "Yes" : "No").append("\n");
+
+        return sb.toString();
+    }
 }
