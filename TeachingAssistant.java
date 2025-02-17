@@ -54,7 +54,7 @@ public class TeachingAssistant extends Staff {
     }
 
     public void gradeStudent(Student student, double grade) {
-        System.out.println(this.getName() + " (TA) graded student " + student.getName() + " with " + grade);
+        System.out.println(this.getName() + " (TA) graded student " + student.getFullName() + " with " + grade);
     }
 
     @Override
