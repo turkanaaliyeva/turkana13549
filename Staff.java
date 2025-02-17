@@ -1,17 +1,11 @@
+import java.util.ArrayList;
+import java.util.List;
 
 public class Staff {
-    // Fields
     private double salary;
     private String phoneNumber;
-
-    // Public fields
-    public String status;
-    public String role;
-    public String email;
-    public String officeNumber;
-    public String name;
-    public String department;
-
+    public String status, role, email, officeNumber, name, department;
+    private List<Room> assignedRooms;
 
     public Staff(String name, String department) {
         this.name = name;
@@ -144,4 +138,41 @@ public class Staff {
         }
         this.officeNumber = officeNumber;
     }
+
+    public void assignRoom(Room room) {
+        if (room != null && !assignedRooms.contains(room)) {
+            assignedRooms.add(room);
+            System.out.println("Room " + room.getID() + " assigned to " + name);
+        } else {
+            System.out.println("Error: Room is either null or already assigned.");
+        }
+    }
+
+    // **Method to Remove a Room Assignment**
+    public void removeRoom(Room room) {
+        if (assignedRooms.contains(room)) {
+            assignedRooms.remove(room);
+            System.out.println("Room " + room.getID() + " removed from " + name);
+        } else {
+            System.out.println("Error: Room not found in assigned rooms.");
+        }
+    }
+
+
+    @Override
+    public String toString() {
+        return "Staff{" +
+                "name='" + name + '\'' +
+                ", department='" + department + '\'' +
+                ", role='" + role + '\'' +
+                ", status='" + status + '\'' +
+                ", email='" + email + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", officeNumber='" + officeNumber + '\'' +
+                ", salary=" + salary +
+                ", assignedRooms=" + assignedRooms +
+                '}';
+    }
+
+
 }
