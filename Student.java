@@ -1,4 +1,5 @@
-import java.time.LocalDate;
+
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -17,8 +18,8 @@ public class Student extends People {
     private String[] instructors = new String[20]; // List of instructors
 
     // Constructor
-    public Student(String fullName, String gender, String phone, String email, int age, int id, 
-                   LocalDate dateOfBirth, String major, int semester) {
+    public Student(String fullName, String gender, String phone, String email, int id, int age, 
+                   Date dateOfBirth, String major, int semester) {
         super(fullName, gender, phone, email, id, age, dateOfBirth);
         this.major = major;
         this.semester = semester;

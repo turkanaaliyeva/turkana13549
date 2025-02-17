@@ -1,55 +1,19 @@
 import java.util.ArrayList;
 
+import enums.Equipment;
+import enums.RoomType;
+
+ 
 public class Room {
 
-    public class Dimension {
-        private int width = 0, length = 0, height = 0;
+    private int ID;
+    private String name;
+    private String loc;
+    public RoomType type;
+    private Dimension dimension;
+    private ArrayList <Equipment> eq;
+    private boolean status;
 
-        public int getWidth() {
-            return width;
-        }
-
-        public void setWidth(int width) {
-            this.width = width;
-        }
-
-        public int getLength() {
-            return length;
-        }
-
-        public void setLength(int length) {
-            this.length = length;
-        }
-
-        public int getHeight() {
-            return height;
-        }
-
-        public void setHeight(int height) {
-            this.height = height;
-        }
-
-        @Override
-        public String toString() {
-            StringBuilder sb = new StringBuilder();
-            sb.append("Width: ").append(Integer.toString(width))
-            .append(" \n length: ").append(Integer.toString(length))
-            .append("\n height: ").append(Integer.toString(height)).append("\n");
-            return sb.toString();
-        }
-    }
-
-    public enum RoomType {
-        NONE,
-        OFFICE,
-        MAJLIS,
-        G_STUDY,
-        S_CASES,
-        M_CASES,
-        L_CASES,
-        AUDITORIUM,
-        LAB
-    }
     private String tmtp_st(RoomType rm){
         switch (rm) {
             case OFFICE:
@@ -72,13 +36,7 @@ public class Room {
                 return "NONE";
         }
     }
-    public enum Equipment {
-        NONE,
-        SMART_BOARD,
-        WHITEBOARD,
-        COMPUTERS,
-        PROJECTOR
-    }
+   
     private String eq_st(ArrayList <Equipment> rm){
         String ans = "";
         for (Equipment equipment : rm) {
@@ -102,13 +60,7 @@ public class Room {
         return ans;
     }
 
-    private int ID;
-    private String name;
-    private String loc;
-    private RoomType type;
-    private Dimension dimension;
-    private ArrayList <Equipment> eq;
-    private boolean status;
+    
 
     public Room(int ID, String name, String loc, 
     RoomType type, int width, int length, int height, 
@@ -125,17 +77,7 @@ public class Room {
         this.status = status;
     }
 
-    public String toString() {
-        return "Room{" +
-                "ID=" + ID +
-                ", name='" + name + '\'' +
-                ", loc='" + loc + '\'' +
-                ", type=" + type +
-                ", dimension=" + dimension + 
-                ", eq=" + formatEquipment() +
-                ", status=" + (status ? "Available" : "Occupied") +
-                '}';
-    }
+   
 
     public void addEquipment(Equipment equipment) {
         if (!eq.contains(equipment)) {
@@ -186,12 +128,6 @@ public class Room {
     public void setDimension(Dimension dimension) {
         this.dimension = dimension;
     }
-
-    public ArrayList<Equipment> getEq() {
-        return eq;
-    }
-
-    public void setEq(ArrayList<Equipment> eq) {
     public ArrayList <Equipment> getEq() {
         return eq;
     }

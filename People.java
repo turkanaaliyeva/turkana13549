@@ -1,3 +1,4 @@
+
 import java.util.Date;
 
 public class People {
@@ -10,14 +11,14 @@ public class People {
     private int age;
     private Date dateOfBirth;
 
-    public People(String fullName, String gender, String phone, String email, int Id, int age, Date dateOfBirth) {
+    public People(String fullName, String gender, String phone, String email, int Id, int age, Date dateOfBirth2) {
         this.fullName = fullName;
         this.gender = gender;
         this.phone = phone;
         this.email = email;
         this.Id = Id;
         this.age = age;
-        this.dateOfBirth = dateOfBirth;
+        this.dateOfBirth = dateOfBirth2;
     }
 
     public People(String fullName, int Id, int age, String email) {
@@ -69,6 +70,7 @@ public class People {
         dateOfBirth = newDateOfBirth;
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
