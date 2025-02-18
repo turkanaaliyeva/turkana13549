@@ -6,7 +6,7 @@ import java.util.List;
 public class Student extends Person {
     private double cgpa;
     private String major;
-    private List<Course> courses;
+    private ArrayList<Course> courses = new ArrayList<>();
     private boolean onProbation;
     private double[] gpas;
     private int semester;
@@ -17,9 +17,9 @@ public class Student extends Person {
     private String[] instructors = new String[20]; // List of instructors
 
     // Constructor
-    public Student(String fullName, String gender, String phone, Email email, int age, int id, 
+    public Student(String fullName, String address, String phone, Email email, int age, int id, 
                    Date dateOfBirth, String major, int semester) {
-        super(fullName, gender, phone, email, age, id, dateOfBirth);
+        super(fullName, address, phone, email, age, id, dateOfBirth);
         this.major = major;
         this.semester = semester;
         this.cgpa = 0.0;
@@ -29,8 +29,8 @@ public class Student extends Person {
     }
 
     // Secondary Constructor
-    public Student(String fullName, String gender, int age, Email email) {
-        super(fullName, gender, age, email);
+    public Student(String fullName, String address, int age, Email email) {
+        super(fullName, address, age, email);
     }
 
     // Add Course
@@ -83,20 +83,20 @@ public class Student extends Person {
     
 
     // Calculate GPA
-    public double calculateGPA() {
-        if (courses.isEmpty()) {
-            System.out.println("No courses enrolled. GPA is 0.0");
-            return 0.0;
-        }
+    // public double calculateGPA() {
+    //     if (courses.isEmpty()) {
+    //         System.out.println("No courses enrolled. GPA is 0.0");
+    //         return 0.0;
+    //     }
 
-        double totalPoints = 0;
-        for (Course course : courses) {
-            totalPoints += course.getcredits(); // Assuming 'getCredits()' returns the course credit
-        }
-        double gpa = totalPoints / courses.size();
-        this.gpas[this.semester - 1] = gpa; // Store GPA for the current semester
-        return gpa;
-    }
+    //     double totalPoints = 0;
+    //     for (Course course : courses) {
+    //         totalPoints += course.getcredits(); // Assuming 'getCredits()' returns the course credit
+    //     }
+    //     double gpa = totalPoints / courses.size();
+    //     this.gpas[this.semester - 1] = gpa; // Store GPA for the current semester
+    //     return gpa;
+    // }
 
     // Update Semester
     public void updateSemester(double[] grades) {
@@ -122,8 +122,8 @@ public class Student extends Person {
     public String getMajor() { return major; }
     public void setMajor(String major) { this.major = major; }
 
-    public List<Course> getCourses() { return courses; }
-    public void setCourses(List<Course> courses) { this.courses = courses; }
+    public ArrayList<Course> getCourses() { return courses; }
+    public void setCourses(ArrayList<Course> courses) { this.courses = courses; }
 
     public boolean isOnProbation() { return onProbation; }
     public void setOnProbation(boolean onProbation) { this.onProbation = onProbation; }
