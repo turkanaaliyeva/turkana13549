@@ -6,7 +6,7 @@ import java.util.List;
 public class Student extends Person {
     private double cgpa;
     private String major;
-    private List<Course> courses;
+    private ArrayList<Course> courses = new ArrayList<>();
     private boolean onProbation;
     private double[] gpas;
     private int semester;
@@ -20,6 +20,7 @@ public class Student extends Person {
     public Student(String fullName, String gender, String phone, String email, int id, int age, 
                    Date dateOfBirth, String major, int semester) {
         super(fullName, gender, phone, email, id, age, dateOfBirth);
+
         this.major = major;
         this.semester = semester;
         this.cgpa = 0.0;
@@ -31,6 +32,7 @@ public class Student extends Person {
     // Secondary Constructor (Minimal Info)
     public Student(String fullName, int id, int age,float gpa,  String email) {
         super(fullName, email, age, id);
+
     }
 
     
@@ -122,8 +124,8 @@ public class Student extends Person {
     public String getMajor() { return major; }
     public void setMajor(String major) { this.major = major; }
 
-    public List<Course> getCourses() { return courses; }
-    public void setCourses(List<Course> courses) { this.courses = courses; }
+    public ArrayList<Course> getCourses() { return courses; }
+    public void setCourses(ArrayList<Course> courses) { this.courses = courses; }
 
     public boolean isOnProbation() { return onProbation; }
     public void setOnProbation(boolean onProbation) { this.onProbation = onProbation; }

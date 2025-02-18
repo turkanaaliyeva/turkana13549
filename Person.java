@@ -1,17 +1,19 @@
 import java.util.Date;
 
 public class Person {
+
     private String fullName;
-    private String gender;
     private String phone;
     private String email;
     private int ID;
     private int age;
     private Date dateOfBirth;
+    private String address;
 
-    public Person(String fullName, String gender, String phone, String email, int ID, int age, Date dateOfBirth2) {
+    public Person(String fullName, String address, String phone, String email, int ID, int age, Date dateOfBirth2) {
+
         this.fullName = fullName;
-        this.gender = gender;
+        this.address = address;
         this.phone = phone;
         this.email = email;
         this.age = age;
@@ -33,11 +35,9 @@ public class Person {
     public String getFullName() {
         return fullName;
     }
-
-    public String getGender() {
-        return gender;
+    public String getAddress() {
+        return address;
     }
-
     public String getPhone() {
         return phone;
     }
@@ -62,8 +62,8 @@ public class Person {
         this.fullName = fullName;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public void setPhone(String phone) {
@@ -86,14 +86,14 @@ public class Person {
         this.dateOfBirth = dateOfBirth;
     }
 
+
+
     @Override
     public String toString() {
-        return "Full Name: " + fullName + 
-               "\nAge: " + age + 
-               "\nGender: " + gender + 
-               "\nPhone number: " + (phone != null ? phone : "N/A") + 
-               "\nEmail: " + email + 
-               "\nID: " + (ID >= 0 ? ID : "N/A") + 
-               "\nDate of Birth: " + (dateOfBirth != null ? dateOfBirth.toString() : "N/A");
+        return "Person [fullName=" + fullName + ", phone=" + phone + ", email=" + email + ", ID=" + ID + ", age=" + age
+                + ", dateOfBirth=" + dateOfBirth + ", address=" + address + "]";
     }
-}
+    
+
+    }
+
