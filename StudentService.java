@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class StudentService {
     public ArrayList<Student> students;
     private Scanner sc;
-    private ArrayList<Course> availableCourses;
+    private ArrayList<Student.Course> availableCourses;
 
     public StudentService() {
         this.students = new ArrayList<>();
@@ -13,11 +13,10 @@ public class StudentService {
         this.availableCourses = new ArrayList<>();
     }
 
-    
-
+    // Find Student by ID
     public Student getStudentById(int id) {
         for (Student student : students) {
-            if (student.getId() == id) {
+            if (student.getID() == id) {
                 return student;
             }
         }
@@ -25,6 +24,7 @@ public class StudentService {
         return null;
     }
 
+    // Enroll Student in a Course
     public void enrollStudentInCourse(int studentId) {
         Student student = getStudentById(studentId);
         if (student != null) {
@@ -46,7 +46,6 @@ public class StudentService {
             }
         }
     }
-
     public void withdrawStudentFromCourse(int studentId, int courseId) {
         Student student = getStudentById(studentId);
         if (student != null) {
@@ -70,12 +69,11 @@ public class StudentService {
     }
 
     public boolean removeStudentById(int studentId) {
-        return students.removeIf(student -> student.getId() == studentId);
+        return students.removeIf(student -> student.getID() == studentId);
     }
 
     public void addAvailableCourse(Course course) {
-        availableCourses.add(course);
-    }
-}
 
-  
+    }
+
+}

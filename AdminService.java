@@ -25,7 +25,7 @@ public class AdminService {
         System.out.print("Enter student email: ");
         String email = sc.next();
         
-        Student student = new Student(name, id, gpa, age, email);
+Student student = new Student(name, id, age, gpa, email);
         studentService.students.add(student);
         System.out.println("Student added successfully!");
     }

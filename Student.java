@@ -1,10 +1,9 @@
-
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Student extends People {
+public class Student extends Person {
     private double cgpa;
     private String major;
     private List<Course> courses;
@@ -12,10 +11,10 @@ public class Student extends People {
     private double[] gpas;
     private int semester;
 
-    // Newly Added Arrays
-    private double[] semesterGPAs = new double[12]; // GPA history for 12 semesters
-    private String[] completedCourses = new String[20]; // List of completed courses
-    private String[] instructors = new String[20]; // List of instructors
+    // Arrays to store additional data
+    private double[] semesterGPAs = new double[12]; 
+    private String[] completedCourses = new String[20]; 
+    private String[] instructors = new String[20];
 
     // Constructor
     public Student(String fullName, String gender, String phone, String email, int id, int age, 
@@ -26,15 +25,17 @@ public class Student extends People {
         this.cgpa = 0.0;
         this.onProbation = false;
         this.courses = new ArrayList<>();
-        this.gpas = new double[12]; // Assuming a max of 12 semesters
+        this.gpas = new double[12]; // Assuming a maximum of 12 semesters
     }
 
-    // Secondary Constructor
-    public Student(String fullName, int id, float gpa, int age, String email) {
-        super(fullName, id, age, email);
+    // Secondary Constructor (Minimal Info)
+    public Student(String fullName, int id, int age,float gpa,  String email) {
+        super(fullName, email, age, id);
     }
 
-    // Add Course
+    
+
+    // Method to Add a Course
     public boolean addCourse(Course course) {
         if (course != null) {
             courses.add(course);
@@ -45,7 +46,7 @@ public class Student extends People {
         return false;
     }
 
-    // Withdraw from Course
+    // Method to Withdraw from a Course
     public boolean withdrawFromCourse(int courseId) {
         boolean removed = courses.removeIf(course -> course.getCourseCode() == courseId);
         if (removed) {
@@ -56,7 +57,32 @@ public class Student extends People {
         return false;
     }
 
-    // Calculate GPA
+    // Inner Class Representing a Course
+    public class Course {
+        private String name;
+        private int courseCode;
+        private int credits; // Number of credits for the course
+    
+        public Course(String name, int courseCode, int credits) {
+            this.name = name;
+            this.courseCode = courseCode;
+            this.credits = credits;
+        }
+    
+        public int getCredits() {
+            return credits;
+        }
+    
+        public String getName() {
+            return name;
+        }
+    
+        public int getCourseCode() {
+            return courseCode;
+        }
+    }
+
+    // Method to Calculate GPA
     public double calculateGPA() {
         if (courses.isEmpty()) {
             System.out.println("No courses enrolled. GPA is 0.0");
@@ -72,7 +98,7 @@ public class Student extends People {
         return gpa;
     }
 
-    // Update Semester
+    // Method to Update the Semester
     public void updateSemester(double[] grades) {
         if (grades == null || grades.length == 0) {
             System.out.println("No grades provided.");
@@ -123,7 +149,7 @@ public class Student extends People {
         StringBuilder sb = new StringBuilder();
         
         // Basic student details
-        sb.append("Student ID: ").append(getId()).append("\n");
+        sb.append("Student ID: ").append(getID()).append("\n");
         sb.append("Name: ").append(getFullName()).append("\n");
         sb.append("Major: ").append(major).append("\n");
         sb.append("CGPA: ").append(cgpa).append("\n");
