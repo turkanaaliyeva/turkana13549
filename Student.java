@@ -55,6 +55,33 @@ public class Student extends Person {
         return false;
     }
 
+
+    // credits of courses
+    public class Course {
+        private String name;
+        private int courseCode;
+        private int credits; // Number of credits for the course
+    
+        public Course(String name, int courseCode, int credits) {
+            this.name = name;
+            this.courseCode = courseCode;
+            this.credits = credits;
+        }
+    
+        public int getCredits() {
+            return credits;
+        }
+    
+        public String getName() {
+            return name;
+        }
+    
+        public int getCourseCode() {
+            return courseCode;
+        }
+    }
+    
+
     // Calculate GPA
     public double calculateGPA() {
         if (courses.isEmpty()) {
