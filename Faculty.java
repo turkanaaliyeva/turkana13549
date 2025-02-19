@@ -12,7 +12,7 @@ public class Faculty {
     private String officeLocation;
     private String hireDate;
     private boolean availability;
-    private List<String> coursesTaught;
+    private List<Course> coursesTaught;
 
     public Faculty(int facultyID, String firstName, String secondName, String email, String phoneNumber,
                    String department, String position, String officeLocation, String hireDate, boolean availability) {
@@ -71,7 +71,7 @@ public class Faculty {
     { 
         return availability; 
     }
-    public List<String> getCoursesTaught() 
+    public List<Course> getCoursesTaught() 
     { 
         return new ArrayList<>(coursesTaught); 
     }
@@ -123,7 +123,7 @@ public class Faculty {
         System.out.printf("%s %s %s %s\n", this.position, this.firstName, this.secondName, message);
     }
 
-    public void assignCourse(String courseName) {
+    public void assignCourse(Course courseName) {
         if (!coursesTaught.contains(courseName)) {
             coursesTaught.add(courseName);
             System.out.println("\"" + courseName + "\" has been assigned to " + this.firstName + " " + this.secondName);
