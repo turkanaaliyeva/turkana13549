@@ -9,20 +9,13 @@ public class Professor extends Faculty {
 
 
     public Professor(String firstName, String secondName, String email, String phoneNumber, int facultyID, 
-                     String department, String position, String officeLocation, String hireDate, boolean availability, 
-                     List<String> coursesTaught, List<String> researchPapers, List<Student> assignedStudents) {
+                     String department, String position, String officeLocation, String hireDate, boolean availability) {
         super(facultyID, firstName, secondName, email, phoneNumber, department, position, officeLocation, hireDate, availability);
-        this.coursesTaught = coursesTaught != null ? coursesTaught : new ArrayList<>();
-        this.researchPapers = researchPapers != null ? researchPapers : new ArrayList<>();
-        this.assignedStudents = assignedStudents != null ? assignedStudents : new ArrayList<>();
     }
 
-    public Professor(int facultyID, String firstName, String secondName, List<String> coursesTaught, 
-                     List<String> researchPapers, List<Student> assignedStudents) {
+    public Professor(int facultyID, String firstName, String secondName) {
         super(facultyID, firstName, secondName);
-        this.coursesTaught = coursesTaught != null ? coursesTaught : new ArrayList<>();
-        this.researchPapers = researchPapers != null ? researchPapers : new ArrayList<>();
-        this.assignedStudents = assignedStudents != null ? assignedStudents : new ArrayList<>();
+
     }
 
     public void teachCourse(String course) {
