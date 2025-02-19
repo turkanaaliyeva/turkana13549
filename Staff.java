@@ -1,106 +1,67 @@
-import java.lang.reflect.Array;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
 
-public class Staff extends Person{
+
+public class Staff extends Person {
     private double salary;
-    public String status, role, officeNumber, department;
+    private String status;
+    private String role;
+    private String officeNumber;
+    private String department;
     private ArrayList<Room> assignedRooms;
-    
-    //constructors
-    public Staff(String fullName, String gender, String phone, Email email, int age, int ID, Date dateOfBirth,
-            double salary, String status, String role, String officeNumber, String department,
-            ArrayList<Room> assignedRooms) {
-        super(fullName, gender, phone, email, age, ID, dateOfBirth);
-        this.salary = salary;
+
+    public Staff(String fullName, String gender, String phone, String email, int age, int ID, Date dateOfBirth,
+                 double salary, String status, String role, String officeNumber, String department, 
+                 ArrayList<Room> assignedRooms) {
+        super(fullName, gender, phone, email,ID, age, dateOfBirth);
+        this.salary = Math.max(salary, 0); 
         this.status = status;
         this.role = role;
         this.officeNumber = officeNumber;
         this.department = department;
-        this.assignedRooms = assignedRooms;
+        this.assignedRooms = assignedRooms != null ? assignedRooms : new ArrayList<>();
     }
 
-    public Staff(String fullName, String gender, int age, Email email, String status, String role, String department) {
-        super(fullName, gender, age, email);
+    public Staff(String fullName, int id, int age, String email, String status, String role, String department) {
+        super(fullName,email, id, age);
         this.status = status;
         this.role = role;
         this.department = department;
+        this.assignedRooms = new ArrayList<>();
     }
 
-    public Staff(String fullName, String gender, String phone, Email email, int age, int ID, Date dateOfBirth,
-            double salary, String status, String role, String department) {
-        super(fullName, gender, phone, email, age, ID, dateOfBirth);
-        this.salary = salary;
-        this.status = status;
-        this.role = role;
-        this.department = department;
-    }
-
-    // getter and setter methods
+  
 
     public double getSalary() {
-        if (salary <= 0) {
-            System.out.println("Error: Salary must be set to a positive value.");
-            return -1; 
-        }
         return salary;
     }
 
     public void setSalary(double salary) {
-        if (salary < 0) {
+        if (salary >= 0) {
+            this.salary = salary;
+        } else {
             System.out.println("Error: Salary must be positive.");
-            return; 
         }
-        this.salary = salary;
     }
 
-    
-    // Department
     public String getDepartment() {
-        if (department == null || department.isEmpty()) {
-            System.out.println("Error: Department has not been set yet.");
-            return null; 
-        }
         return department;
     }
 
     public void setDepartment(String department) {
-        if (department == null || department.isEmpty()) {
-            System.out.println("Error: Department cannot be null or empty.");
-            return; // Do nothing, prevent the operation
+        if (department != null && !department.isEmpty()) {
+            this.department = department;
+        } else {
+            System.out.println("Error: Department cannot be empty.");
         }
-        this.department = department;
     }
 
-   
-
-    // Status
-    public void setStatus(String status) {
-        if (status == null || status.isEmpty()) {
-            System.out.println("Error: Status cannot be null or empty.");
-            return; // Do nothing, prevent the operation
-        }
-        this.status = status;
-    }
-
-    // Role
-    public void setRole(String role) {
-        if (role == null || role.isEmpty()) {
-            System.out.println("Error: Role cannot be null or empty.");
-            return; // Do nothing, prevent the operation
-        }
-        this.role = role;
-    }
-
-    // Office Number
-    public void setOfficeNumber(String officeNumber) {
-        if (officeNumber == null || officeNumber.isEmpty()) {
-            System.out.println("Error: Office number cannot be null or empty.");
-            return; // Do nothing, prevent the operation
-        }
-        this.officeNumber = officeNumber;
-    }
-    public String getOfficeNumber(){
+    public String getOfficeNumber() {
         return officeNumber;
+    }
+
+    public void setOfficeNumber(String officeNumber) {
+        this.officeNumber = officeNumber;
     }
 
     public void assignRoom(Room room) {
@@ -112,7 +73,6 @@ public class Staff extends Person{
         }
     }
 
-    // **Method to Remove a Room Assignment**
     public void removeRoom(Room room) {
         if (assignedRooms.contains(room)) {
             assignedRooms.remove(room);
@@ -124,17 +84,12 @@ public class Staff extends Person{
 
     @Override
     public String toString() {
-        StringBuilder info = new StringBuilder();
-        info.append(super.toString());
-        info.append("\nStatus: " + status);
-        info.append("\nRole: " + role);
-        info.append("\nOffice Number: " + officeNumber);
-        info.append("\nDepartment: " + department);
-        info.append("\nSalary: " + salary);
-        info.append("\nNumber of Assigned Rooms: " + assignedRooms.size());
-        String infoString = info.toString();
-        return infoString;
+        return super.toString() + 
+               "\nStatus: " + status + 
+               "\nRole: " + role + 
+               "\nOffice Number: " + (officeNumber != null ? officeNumber : "N/A") + 
+               "\nDepartment: " + department + 
+               "\nSalary: $" + salary + 
+               "\nNumber of Assigned Rooms: " + assignedRooms.size();
     }
-
-
 }
