@@ -1,20 +1,53 @@
 import java.util.ArrayList;
 
-import enums.Equipment;
-import enums.RoomType;
-
- 
 public class Room {
+
+    private class Dimension {
+        private int width = 0, length = 0, height = 0;
+    
+        public int getWidth() {
+            return width;
+        }
+    
+        public void setWidth(int width) {
+            this.width = width;
+        }
+    
+        public int getLength() {
+            return length;
+        }
+    
+        public void setLength(int length) {
+            this.length = length;
+        }
+    
+        public int getHeight() {
+            return height;
+        }
+    
+        public void setHeight(int height) {
+            this.height = height;
+        }
+    
+        @Override
+        public String toString() {
+            StringBuilder sb = new StringBuilder();
+            sb.append("Width: ").append(Integer.toString(width))
+            .append(" \n length: ").append(Integer.toString(length))
+            .append("\n height: ").append(Integer.toString(height)).append("\n");
+            return sb.toString();
+        }
+    }
 
     private int ID;
     private String name;
     private String loc;
-    public RoomType type;
+    public Enums.RoomType type;
     private Dimension dimension;
-    private ArrayList <Equipment> eq;
+    private ArrayList <Enums.Equipment> eq;
     private boolean status;
 
-    private String tmtp_st(RoomType rm){
+    private String tmtp_st(Enums.RoomType rm){
         switch (rm) {
             case OFFICE:
                 return "OFFICE";
@@ -37,9 +70,9 @@ public class Room {
         }
     }
    
-    private String eq_st(ArrayList <Equipment> rm){
+    private String eq_st(ArrayList <Enums.Equipment> rm){
         String ans = "";
-        for (Equipment equipment : rm) {
+        for (Enums.Equipment equipment : rm) {
             switch (equipment) {
                 case SMART_BOARD:
                     ans += "SMART_BOARD";
@@ -63,8 +96,8 @@ public class Room {
     
 
     public Room(int ID, String name, String loc, 
-    RoomType type, int width, int length, int height, 
-    ArrayList <Equipment> eq, boolean status){
+    Enums.RoomType type, int width, int length, int height, 
+    ArrayList <Enums.Equipment> eq, boolean status){
         this.ID = ID;
         this.name = name;
         this.loc = loc;
@@ -73,20 +106,8 @@ public class Room {
         this.dimension.setWidth(width);
         this.dimension.setLength(length);
         this.dimension.setHeight(height);
-        this.eq = eq != null ? eq : new ArrayList<Equipment>();
+        this.eq = eq != null ? eq : new ArrayList<Enums.Equipment>();
         this.status = status;
-    }
-
-   
-
-    public void addEquipment(Equipment equipment) {
-        if (!eq.contains(equipment)) {
-            eq.add(equipment);
-        }
-    }
-
-    public void removeEquipment(Equipment equipment) {
-        eq.remove(equipment);
     }
 
     public int getID() {
@@ -113,11 +134,11 @@ public class Room {
         this.loc = loc;
     }
 
-    public RoomType getType() {
+    public Enums.RoomType getType() {
         return type;
     }
 
-    public void setType(RoomType type) {
+    public void setType(Enums.RoomType type) {
         this.type = type;
     }
 
@@ -128,11 +149,11 @@ public class Room {
     public void setDimension(Dimension dimension) {
         this.dimension = dimension;
     }
-    public ArrayList <Equipment> getEq() {
+    public ArrayList <Enums.Equipment> getEq() {
         return eq;
     }
 
-    public void setEq(ArrayList <Equipment> eq) {
+    public void setEq(ArrayList <Enums.Equipment> eq) {
         this.eq = eq;
     }
 
@@ -157,7 +178,7 @@ public class Room {
         .append(" \n Location: ").append(this.loc)
         .append(" \n Room Type: ").append(tmtp_st(this.type))
         .append(" \n Dimension: ").append(this.dimension.toString())
-        .append(" \n Equipment:").append(eq_st(this.eq))
+        .append(" \n Enums.Equipment:").append(eq_st(this.eq))
         .append(" \n Status: ").append(s).append("\n");
         return sb.toString();
     }
