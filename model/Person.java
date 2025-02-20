@@ -1,32 +1,33 @@
+package model;
 import java.util.Date;
 
-public class Person {
+public abstract class Person {
 
     private String fullName;
     private String phone;
     private String email;
-    private int ID;
+    private int id;
     private int age;
     private Date dateOfBirth;
     private String address;
 
-    public Person(String fullName, String address, String phone, String email, int ID, int age, Date dateOfBirth2) {
+    public Person(String fullName, String address, String phone, String email, int id, int age, Date dateOfBirth2) {
 
         this.fullName = fullName;
         this.address = address;
         this.phone = phone;
         this.email = email;
         this.age = age;
-        this.ID = ID;
+        this.id = id;
         this.dateOfBirth = dateOfBirth2;
     }
 
  
 
-    public Person(String fullName, String email, int ID, int age) {
+    public Person(String fullName, String email, int id, int age) {
         this.fullName = fullName;
         this.email = email;
-        this.ID = ID;
+        this.id = id;
         this.age = age;
     }
 
@@ -50,8 +51,8 @@ public class Person {
         return age;
     }
 
-    public int getID() {
-        return ID;
+    public int getId() {
+        return id;
     }
 
     public Date getDateOfBirth() {
@@ -78,8 +79,8 @@ public class Person {
         this.age = age;
     }
 
-    public void setID(int ID) {
-        this.ID = ID;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void setDateOfBirth(Date dateOfBirth) {
@@ -90,7 +91,7 @@ public class Person {
 
     @Override
     public String toString() {
-        return "Person [fullName=" + fullName + ", phone=" + phone + ", email=" + email + ", ID=" + ID + ", age=" + age
+        return "Person [fullName=" + fullName + ", phone=" + phone + ", email=" + email + ", id=" + id + ", age=" + age
                 + ", dateOfBirth=" + dateOfBirth + ", address=" + address + "]";
     }
     

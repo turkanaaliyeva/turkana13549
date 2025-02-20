@@ -1,35 +1,38 @@
+package model;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 
-public class TeachingAssistant extends Staff {
+import service.AcademicDetails;
+import service.Course;
+
+public class TeachingAssistant extends Student {
     private String[] assignedCourses;
     private int courseCount;
     private static final int MAX_COURSES = 10;
     private Professor supervisor;
 
-
-
-  
-
-    public TeachingAssistant(String fullName, String gender, String phone, String email, int age, int ID,
-            Date dateOfBirth, double salary, String status, String role, String officeNumber, String department,
-            ArrayList<Room> assignedRooms, String[] assignedCourses, int courseCount, Professor supervisor) {
-        super(fullName, gender, phone, email, age, ID, dateOfBirth, salary, status, role, officeNumber, department,
-                assignedRooms);
+    public TeachingAssistant(String fullName, int id, int age, float gpa, String email, String[] assignedCourses,
+            int courseCount, Professor supervisor) {
+        super(fullName, id, age, gpa, email);
         this.assignedCourses = assignedCourses;
         this.courseCount = courseCount;
         this.supervisor = supervisor;
     }
 
-    public TeachingAssistant(String fullName, int id, int age, String email, String status, String role,
-            String department, String[] assignedCourses, int courseCount, Professor supervisor) {
-        super(fullName, id, age, email, status, role, department);
+
+    public TeachingAssistant(String fullName, String address, String phone, String email, int id, int age,
+            Date dateOfBirth2, double cgpa, String major, ArrayList<Course> courses, boolean onProbation, double[] gpas,
+            int semester, double[] semesterGPAs, String[] completedCourses, String[] instructors, int coursesCovered,
+            AcademicDetails academicDetails, String[] assignedCourses, int courseCount, Professor supervisor) {
+        super(fullName, address, phone, email, id, age, dateOfBirth2, cgpa, major, courses, onProbation, gpas, semester,
+                semesterGPAs, completedCourses, instructors, coursesCovered, academicDetails);
         this.assignedCourses = assignedCourses;
         this.courseCount = courseCount;
         this.supervisor = supervisor;
     }
+
 
     public void assignToCourse(String course) {
         if (courseCount < MAX_COURSES) {
@@ -75,15 +78,21 @@ public class TeachingAssistant extends Staff {
         System.out.println(this.getFullName() + " (TA) graded student " + student.getFullName() + " with " + grade);
     }
 
+
+
     @Override
     public String toString() {
-        return "Teaching Assistant: " + getFullName() + "\n" +
-               "Department: " + getDepartment() + "\n" +
-               "Salary: $" + getSalary() + "\n" +
-               "Email: " + getEmail() + "\n" +
-               "Phone Number: " + getPhone() + "\n" +
-               "Office Number: " + getOfficeNumber() + "\n" +
-               "Supervisor: " + (supervisor != null ? supervisor.getFirstName() : "None") + "\n" +
-               "Assigned Courses: " + (courseCount > 0 ? String.join(", ", Arrays.copyOf(assignedCourses, courseCount)) : "None") + "\n";
+        return "TeachingAssistant [assignedCourses=" + Arrays.toString(assignedCourses) + ", courseCount=" + courseCount
+                + ", supervisor=" + supervisor + "]";
     }
+
+
+
+
+
+
+    
+
+   
+    
 }

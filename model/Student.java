@@ -1,8 +1,11 @@
+package model;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
+
+import service.AcademicDetails;
+import service.Course;
 
 public class Student extends Person {
     private double cgpa;
@@ -15,6 +18,7 @@ public class Student extends Person {
     private String[] completedCourses = new String[20]; 
     private String[] instructors = new String[20];
     private int coursesCovered;
+    private AcademicDetails academicDetails;
 
     // Constructor
     public Student(String fullName, int id, int age, float gpa, String email) {
@@ -67,12 +71,13 @@ public class Student extends Person {
         return true;
     }
 
-    
+ 
 
-    public Student(String fullName, String address, String phone, String email, int ID, int age, Date dateOfBirth2,
-            double cgpa, String major, ArrayList<Student.Course> courses, boolean onProbation, double[] gpas,
-            int semester, double[] semesterGPAs, String[] completedCourses, String[] instructors, int coursesCovered) {
-        super(fullName, address, phone, email, ID, age, dateOfBirth2);
+    public Student(String fullName, String address, String phone, String email, int id, int age, Date dateOfBirth2,
+            double cgpa, String major, ArrayList<Course> courses, boolean onProbation, double[] gpas, int semester,
+            double[] semesterGPAs, String[] completedCourses, String[] instructors, int coursesCovered,
+            AcademicDetails academicDetails) {
+        super(fullName, address, phone, email, id, age, dateOfBirth2);
         this.cgpa = cgpa;
         this.major = major;
         this.courses = courses;
@@ -83,22 +88,7 @@ public class Student extends Person {
         this.completedCourses = completedCourses;
         this.instructors = instructors;
         this.coursesCovered = coursesCovered;
-    }
-
-    public Student(String fullName, String email, int ID, int age, double cgpa, String major,
-            ArrayList<Student.Course> courses, boolean onProbation, double[] gpas, int semester, double[] semesterGPAs,
-            String[] completedCourses, String[] instructors, int coursesCovered) {
-        super(fullName, email, ID, age);
-        this.cgpa = cgpa;
-        this.major = major;
-        this.courses = courses;
-        this.onProbation = onProbation;
-        this.gpas = gpas;
-        this.semester = semester;
-        this.semesterGPAs = semesterGPAs;
-        this.completedCourses = completedCourses;
-        this.instructors = instructors;
-        this.coursesCovered = coursesCovered;
+        this.academicDetails = academicDetails;
     }
 
     public boolean isHonorStudent() {
@@ -127,43 +117,14 @@ public class Student extends Person {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Student ID: ").append(getID()).append("\n");
-        sb.append("Name: ").append(getFullName()).append("\n");
-        sb.append("Major: ").append(major).append("\n");
-        sb.append("CGPA: ").append(cgpa).append("\n");
-        sb.append("Semester: ").append(semester).append("\n");
-        sb.append("Courses Covered: ").append(courses.size()).append("\n");
-        sb.append("Enrolled Courses: ");
-        if (courses.isEmpty()) {
-            sb.append("None\n");
-        } else {
-            for (Course course : courses) {
-                sb.append(course.getName()).append(", ");
-            }
-            sb.delete(sb.length() - 2, sb.length()).append("\n");
-        }
-        sb.append("Semester GPAs: ").append(Arrays.toString(semesterGPAs)).append("\n");
-        sb.append("Completed Courses: ").append(Arrays.toString(completedCourses)).append("\n");
-        sb.append("Instructors: ").append(Arrays.toString(instructors)).append("\n");
-        sb.append("On Probation: ").append(onProbation ? "Yes" : "No").append("\n");
-        return sb.toString();
+        return "Student [cgpa=" + cgpa + ", major=" + major + ", courses=" + courses + ", onProbation=" + onProbation
+                + ", gpas=" + Arrays.toString(gpas) + ", semester=" + semester + ", semesterGPAs="
+                + Arrays.toString(semesterGPAs) + ", completedCourses=" + Arrays.toString(completedCourses)
+                + ", instructors=" + Arrays.toString(instructors) + ", coursesCovered=" + coursesCovered
+                + ", academicDetails=" + academicDetails + "]";
     }
 
-    // Inner Class Representing a Course
-    public static class Course {
-        private String name;
-        private int courseCode;
-        private int credits;
 
-        public Course(String name, int courseCode, int credits) {
-            this.name = name;
-            this.courseCode = courseCode;
-            this.credits = credits;
-        }
-
-        public int getCredits() { return credits; }
-        public String getName() { return name; }
-        public int getCourseCode() { return courseCode; }
-    }
+    
+  
 }
