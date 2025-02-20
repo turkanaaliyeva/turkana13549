@@ -9,17 +9,18 @@ public class Professor extends Faculty {
     private String phd;  // added phd 
     private String researchInterest; //rscrh interest
 
-    //including phd and research interest
-    public Professor(String fullName, String gender, String phone, String email, int age, int ID, Date dateOfBirth,
-            double salary, String status, String role, String officeNumber, String department,
-            ArrayList<Room> assignedRooms, List<String> coursesTaught, List<String> researchPapers,
-            List<Student> assignedStudents, String phd, String researchInterest) {
-        super(fullName, gender, phone, email, age, ID, dateOfBirth, salary, status, role, officeNumber, department,
-                assignedRooms);
+   
+
+    public Professor(int facultyID, String firstName, String secondName, String email, String phoneNumber,
+            String department, String position, String officeLocation, String hireDate, boolean availability,
+            List<String> coursesTaught, List<String> researchPapers, List<Student> assignedStudents, String phd,
+            String researchInterest) {
+        super(facultyID, firstName, secondName, email, phoneNumber, department, position, officeLocation, hireDate,
+                availability);
         this.coursesTaught = coursesTaught;
         this.researchPapers = researchPapers;
         this.assignedStudents = assignedStudents;
-        this.phd = phd;  // 
+        this.phd = phd;
         this.researchInterest = researchInterest;
     }
 
@@ -46,7 +47,7 @@ public class Professor extends Faculty {
     // Method to assign a TA to a course
     public void assignTA(TeachingAssistant ta, String course) {
         if (ta != null && course != null && !course.isEmpty()) {
-            System.out.println("Professor " + getFirstName() + " assigned " + ta.getFirstName() + " as a TA for " + course);
+            System.out.println("Professor " + getFirstName() + " assigned " + ta.getFullName() + " as a TA for " + course);
             ta.assignToCourse(course);
         } else {
             System.out.println("Error: TA or course is invalid.");

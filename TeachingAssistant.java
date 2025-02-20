@@ -83,7 +83,7 @@ public class TeachingAssistant extends Staff {
                "Email: " + getEmail() + "\n" +
                "Phone Number: " + getPhone() + "\n" +
                "Office Number: " + getOfficeNumber() + "\n" +
-               "Supervisor: " + (supervisor != null ? supervisor.getFullName() : "None") + "\n" +
+               "Supervisor: " + (supervisor != null ? supervisor.getFirstName() : "None") + "\n" +
                "Assigned Courses: " + (courseCount > 0 ? String.join(", ", Arrays.copyOf(assignedCourses, courseCount)) : "None") + "\n";
     }
 }
