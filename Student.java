@@ -164,7 +164,6 @@ public class Student extends Person {
         public int getCredits() {
             return credits;
         }
-    
         public String getName() {
             return name;
         }
