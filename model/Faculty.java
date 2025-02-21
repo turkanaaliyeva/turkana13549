@@ -1,7 +1,9 @@
+package model;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+
+import service.Course;
 
 public class Faculty extends Person {
     private int facultyID;
@@ -54,7 +56,7 @@ public class Faculty extends Person {
     public void setAvailability(boolean availability) { this.availability = availability; }
 
     public ArrayList<Course> getCoursesTaught() {
-        return coursesTaught;
+        return (ArrayList<Course>) coursesTaught;
     }
 
     public void changeAvailabilityStatus(boolean status) {

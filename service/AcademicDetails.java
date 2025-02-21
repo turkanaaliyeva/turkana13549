@@ -1,4 +1,5 @@
-class AcademicDetails {
+package service;
+public class AcademicDetails {
     // fields
     private String level;
     private String program;
@@ -53,6 +54,4 @@ class AcademicDetails {
     public String toString() {
         return "Level: " + level + "\nProgram: " + program + "\nDivision: " + division + "\nMajor: " + major + "\nCatalog Year: " + catalogYear;
     }
-
-    
 }

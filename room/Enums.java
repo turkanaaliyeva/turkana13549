@@ -1,3 +1,4 @@
+package room;
 public class Enums{
     public enum Equipment{
         NONE,
